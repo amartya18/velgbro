@@ -1,0 +1,6 @@
+current progress:
+* basic home page
+* sign up
+* login 
+* log out
+* profile

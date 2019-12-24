@@ -81,13 +81,6 @@ DATABASES = {
         'NAME': 'velgbro',
         'USER': 'devuser',
         'PASSWORD': 'root',
-
-        # 'USER': 'AMA1210',
-        # 'PASSWORD': 'gcj2usy7',
-
-        # 'USER': 'MAR6480',
-        # 'PASSWORD': 'caefpzvs',
-
         'HOST': '192.168.64.2',
         # 'PORT': '6969'
     }

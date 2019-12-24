@@ -7,9 +7,6 @@ from .forms import SignUpForm
 def home_view(request):
     return HttpResponse("Hello World!")
 
-def test_view(request):
-    return render(request, 'users/temp.html', {})
-
 def signup_view(request):
     form = SignUpForm(request.POST)
     if form.is_valid():

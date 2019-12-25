@@ -1,17 +1,80 @@
-<h2>Sign up</h2>
-<form method="post">
-  {% csrf_token %}
-  {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-        <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-        <p style="color: red">{{ error }}</p>
-      {% endfor %}
-    </p>
-  {% endfor %}
-  <button type="submit">Sign up</button>
+{% extends "store/baseWnavbar.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-6 bg-info" style="height: 100vh;">
+      <img src="{% static 'store/img/logoWhite.png' %}" style="width: inherit;" alt="">
+  </div>
+      
+  <div class='col-md-6 pl-0'>
+     <!-- Default form register -->
+<form class="text-center border border-light px-5 pt-3" method="post">
+{% csrf_token %}
+<p class="h4 mb-4">Sign up to VelgBro</p>
+<div class='my-4'>
+  {{form.username}}
+  </div>
+
+<div class="form-row mb-4">
+  <!--USername-->
+
+    <div class="col">
+        <!-- First name -->
+        {{form.first_name}}
+    </div>
+    <div class="col">
+        <!-- Last name -->
+        {{form.last_name}}
+    </div>
+</div>
+
+<!-- E-mail -->
+<div class='my-4'>
+{{form.email}}
+</div>
+<!-- Phone number -->
+<div class="my-4">
+{{form.phone_number}}
+</div>
+
+<!-- Password -->
+<div class="my-4">
+{{form.password1}}
+</div>
+
+<!-- Password 2-->
+<div class="my-4">
+{{form.password2}}
+<small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+  At least 8 characters and 1 digit
+</small>
+</div>
+
+
+
+<!-- Sign up button -->
+<button class="btn btn-info my-4 btn-block" type="submit">Sign Up</button>
+
+<!-- Social register -->
+<p>or sign up with:</p>
+
+<a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+<a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+<a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+<a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
+
+<hr>
+
+<!-- Terms of service -->
+  <p>By clicking
+      <em>Sign up</em> you agree to our
+      <a href="" target="_blank">terms of service</a>
+  </p>
 </form>
+</div>
+</div>
+</div>
+
+
+<!-- {% endblock content%} -->

@@ -10,7 +10,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/css/mdb.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/css/style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+
+
+
 
     {% if title %}
         <title>{{ title }}</title>
@@ -19,6 +26,84 @@
     {% endif %}
 </head>
 <body>
+    <!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand waves-effect" href="" target="_blank">
+        <img src="{% static 'store/img/logo.png' %}" width=50 alt="">
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="sell.html" target="_blank">Sell</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href=""
+              target="_blank">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="profile.html" target="_blank">My Profile</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link waves-effect">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="clearfix d-none d-sm-inline-block"> Wishlist </span>
+            </a>
+          </li>
+          <!--THIS PART IS HIDDEN, DELETE d-none class to see-->
+          <!-- <div class="">   -->
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="signup.html" class="nav-link waves-effect ml-2"
+                target="_blank">
+                <i class="far fa-user"></i>
+                <strong>{{user.username}}</strong></a>
+        {% else %}
+          <li class="nav-item">
+            <a href="{" class="nav-link border border-light rounded waves-effect ml-2"
+              target="_blank">
+              Sign In
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="signup.html" class="nav-link border border-light rounded waves-effect ml-2"
+              target="_blank">
+              Sign Up
+            </a>
+          </li>
+          {% endif %}
+            
+          </a>
+        </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Navbar -->
+
 
     {% block content %} {% endblock %}
 

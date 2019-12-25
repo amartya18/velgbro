@@ -1,11 +1,86 @@
-<div class="content-section">
-    <div class="media">
-      <img class="rounded-circle account-img" src="{{ user.profile.profile_picture.url }}">
-      <div class="media-body">
-        <h2 class="account-heading">{{ user.username }}</h2>
-        <p class="text-secondary">{{ user.email }}</p>
-        <p><a href="{% url 'logout' %}">logout</a></p>
+{% extends "store/base.html" %}
+{% include "navbar.html" %}
+{% block content %}
+
+
+
+  <div class="profile pt-5 mt-5 ">
+    <h1 class="text-center">Profile</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="profile-pic">
+            <img src="{{ user.profile.profile_picture.url }}" alt="">
+          </div>
+        </div> 
+        <div class="col-lg-9 mt-1">
+          <h4>@{{ user.username }}</h4>
+          <h5><small>{{ user.email }}</small></h5>
+          <h5>Post Count: <b>1</b></h5>
+          <h5>Sold :<b>1</b></h5>
+          
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <p><a href="{% url 'logout' %}">logout</a></p>
+        </div>
       </div>
     </div>
-    <!-- FORM HERE -->
   </div>
+  <hr>
+  <h2 class="text-center">{{user.first_name}}'s Wheel</h2>
+  <h5  class="text-center"><small>ordered by</small>
+    <select  class="form-control form-control-sm ml-1" style="display: inline; width: auto;">
+    <option value="latest">Latest</option>
+    <option value="sold">Sold</option>
+    <option value="viewed">Viewed</option>
+  </select></h5>
+  <div class="container">
+  <!--Section: Products v.3-->
+  <section class="text-left mb-4">
+  
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+  
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-4">
+  
+        <!--Card-->
+        <div class="card card-small hot_card">
+  
+          <!--Card image-->
+          <div class="view overlay">
+            <img src="img/wheel/wheelsale (1).png" class="card-img-top"
+              alt="">
+            <a>
+              <div class="mask rgba-white-slight"></div>
+              <div class=wheel-tag>HOT</div>
+            </a>
+          </div>
+          <!--Card image-->
+  
+          <!--Card content-->
+          <div class="card-body text-center">
+            <!--Category & Title-->
+            <a href="" class="grey-text">
+              <h5>USED</h5>
+            </a>
+            <div class=" wheel-title text-center">2017 Enkei RPF1 1.0 harga terbaik</div>
+  
+            <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 12.000.000</div>
+  
+  
+          </div>
+          <!--Card content-->
+  
+        </div>
+        <!--Card-->
+  
+      </div>
+      <!--Grid column-->
+    </section>
+  
+  </div>
+  {% endblock content %}

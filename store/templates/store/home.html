@@ -1,0 +1,6 @@
+<h1> - List View - </h1>
+<ul>
+    {% for post in posts %}
+    <li><a href="{{ post.get_absolute_url }}"> {{ post.user.username }} </a></li>
+    {% endfor %}
+</ul>

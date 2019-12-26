@@ -44,6 +44,6 @@ class Premium(models.Model):
     datetime = models.DateTimeField()
     # price (?)
 
-# class WheelImage(models.Model):
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-#     image = models.ImageField()
+class WheelImage(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    image = models.ImageField(blank=True)

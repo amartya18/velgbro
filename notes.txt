@@ -4,3 +4,4 @@ current progress:
 * login 
 * log out
 * profile
+* basic user post

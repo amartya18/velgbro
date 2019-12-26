@@ -22,22 +22,22 @@ class Material(models.Model):
     material = models.CharField(max_length=100)
 
 class Color(models.Model):
-    color = models.CharField(max_length=100
-                             )
+    color = models.CharField(max_length=100)
+
 class Wheel(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, default='')
-    model = models.ForeignKey(Model, on_delete=models.DO_NOTHING, default='')
-    date_time = models.DateTimeField(default='')
-    bolt_pattern = models.ForeignKey(Bolt_Pattern, on_delete=models.DO_NOTHING, default='')
-    ring_size = models.ForeignKey(RingSize, on_delete=models.DO_NOTHING, default='')
-    width = models.ForeignKey(Width, on_delete=models.DO_NOTHING, default='')
-    offset = models.IntegerField(null=True)
+    name = models.CharField(max_length=50)
+    model = models.ForeignKey(Model, on_delete=models.DO_NOTHING)
+    # date_time = models.DateTimeField(blank=True)
+    bolt_pattern = models.ForeignKey(Bolt_Pattern, on_delete=models.DO_NOTHING)
+    ring_size = models.ForeignKey(RingSize, on_delete=models.DO_NOTHING)
+    width = models.ForeignKey(Width, on_delete=models.DO_NOTHING)
+    offset = models.IntegerField()
     # new_used = models.BooleanField(default=True)
-    color = models.ForeignKey(Color, on_delete=models.DO_NOTHING, default='')
-    description = models.CharField(max_length=255, default='')
+    color = models.ForeignKey(Color, on_delete=models.CASCADE)
+    description = models.CharField(max_length=255)
     material = models.ForeignKey(Material, null=True, on_delete=models.DO_NOTHING)
-    price = models.CharField(max_length=10, default=0)
+    price = models.CharField(max_length=10)
 
 
 

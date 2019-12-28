@@ -4,3 +4,10 @@ current progress:
 * login 
 * log out
 * profile
+
+todos:
+* post's hit/visitors count
+* search
+* finish all wheel attributes
+* comments
+* wishlist

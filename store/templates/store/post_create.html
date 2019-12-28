@@ -1,14 +1,10 @@
-{% extends "store/base.html" %}
-
-{% block content %}
 <div class="row">  
-{% block content %}
     <div class="col-md-6">
-        <form method="POST" action="{% url 'store.views.create_post_view' %}"></form>
+        <form method="POST" action="{% url 'create-post' %}">
         {% csrf_token %}
         {{ post_form }}
         {{ product_form }}
-        <button class="btn btn-primary">create post </button>
+        <button type="submit">create post </button>
+        </form>
     </div>
 </div>
-{% endblock %}

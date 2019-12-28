@@ -6,9 +6,8 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from store.forms import PostForm, ProductForm
+from products.models import Wheel
 from django.utils import timezone
-
-from django.core import serializers
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
@@ -40,7 +39,6 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs): # stripe
         context = super().get_context_data(**kwargs)
-        self.request.session['post_object'] = serializers.serialize('json', [self.object])
         context['key'] = settings.STRIPE_PUBLISHABLE_KEY
         context['price_stripe'] = 500
         return context
@@ -57,18 +55,18 @@ def create_post_view(request):
             post = post_form.save(False)
             post.user = request.user
             post.datetime = timezone.now()
-            post.save()
             product = product_form.save(False)
             product.post = post
+            post.save()
             product.save()
             return redirect('post-list')
     else:
-        post_form = PostForm()
-        product_form = ProductForm()
+        post_form = PostForm(instance=Post())
+        product_form = ProductForm(instance=Wheel())
 
         context = {}
-        context.update(csrf(request))
         context['post_form'] = post_form
         context['product_form'] = product_form
+        print(request.user.username)
 
         return render(request, "store/post_create.html", context)

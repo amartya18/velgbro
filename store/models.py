@@ -13,6 +13,9 @@ class Post(models.Model):
 
     slug = models.SlugField(max_length=100,blank=True)
 
+    def __str__(self):
+        return "{} - {}".format(self.wheel.name, self.user.username)
+
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'slug': self.slug}) # new
 

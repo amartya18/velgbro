@@ -10,3 +10,6 @@ class ProductForm(ModelForm):
     class Meta:
         model = Wheel
         fields = ('name','ring_size','width','bolt_pattern')
+
+class SearchForm(ModelForm):
+    pass

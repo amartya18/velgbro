@@ -1,14 +1,15 @@
 import stripe
 from django.shortcuts import render, HttpResponse, Http404, redirect
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
-from .models import Post
+from .models import Post, WheelImage
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from store.forms import PostForm, ProductForm
+from store.forms import PostForm, ProductForm, ImageForm
 from products.models import Wheel, RingSize, Width, BoltPattern
 from django.utils import timezone
 from django.db.models import Q
+from django.forms.models import modelformset_factory
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
@@ -69,10 +70,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 @login_required
 def create_post_view(request):
+    # ImageFormSet = modelformset_factory(WheelImage, fields=('image',), extra=2) # extra = max amount of photos 
+    ImageFormSet = modelformset_factory(WheelImage, form=ImageForm, extra=2) # extra = max amount of photos 
     if request.method == "POST":
         post_form = PostForm(request.POST)
         product_form = ProductForm(request.POST)
-        if post_form.is_valid() and product_form.is_valid():
+        image_form = ImageFormSet(request.POST, request.FILES)
+        if post_form.is_valid() and product_form.is_valid() and image_form.is_valid():
             post = post_form.save(False)
             post.user = request.user
             post.datetime = timezone.now()
@@ -80,14 +84,25 @@ def create_post_view(request):
             product.post = post
             post.save()
             product.save()
-            return redirect('post-list')
+
+
+            for form in image_form.cleaned_data:
+                try:
+                    photo = WheelImage(post=post, image=form['image'])
+                    photo.save()
+                except Exception as e:
+                    print("Error")
+                    break
+            return redirect('home')
     else:
         post_form = PostForm(instance=Post())
         product_form = ProductForm(instance=Wheel())
+        image_form = ImageFormSet(queryset=WheelImage.objects.none())
 
         context = {}
         context['post_form'] = post_form
         context['product_form'] = product_form
+        context['image_form'] = image_form
         print(request.user.username)
 
         return render(request, "store/post_create.html", context)

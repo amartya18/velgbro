@@ -11,3 +11,4 @@ todos:
 * finish all wheel attributes
 * comments
 * wishlist
+* add django messages

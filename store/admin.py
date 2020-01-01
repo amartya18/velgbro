@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, WheelImage
 from products.models import Wheel
 
 
@@ -26,4 +26,5 @@ class PostAdmin(admin.ModelAdmin):
     def wheel_bolt_pattern(self, post):
         return post.wheel.bolt_pattern
 
+admin.site.register(WheelImage)
 admin.site.register(Post, PostAdmin)

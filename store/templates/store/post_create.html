@@ -1,11 +1,11 @@
-<div class="row">  
+<div class="row">
     <div class="col-md-6">
         <form method="POST" enctype="multipart/form-data" action="{% url 'create-post' %}">
-        {% csrf_token %}
-        {{ post_form }}
-        {{ product_form }}
-        {{ image_form }}
-        <button type="submit">create post </button>
+            {% csrf_token %}
+            {{ post_form }}
+            {{ product_form }}
+            {{ image_form }}
+            <button type="submit">create post</button>
         </form>
     </div>
 </div>

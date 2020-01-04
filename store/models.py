@@ -4,18 +4,24 @@ from django.utils.crypto import get_random_string
 from django.urls import reverse
 from PIL import Image
 
+class Premium(models.Model):
+    name = models.CharField(max_length=100) # basic or premium
+    price = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.name
+
 # Create your models here.
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     datetime = models.DateTimeField()
+    premium = models.ForeignKey(Premium, on_delete=models.CASCADE)
     sold = models.BooleanField(default=False)
-    # premium = models.ForeignKey()
-    # if post.premium does not exist = post not premium
 
     slug = models.SlugField(max_length=100,blank=True)
 
     def __str__(self):
-        return "{} - {}".format(self.wheel.name, self.user.username)
+        return "{} {} {}".format(self.wheel.model.brand.brand, self.wheel.model.model, self.wheel.name)
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'slug': self.slug}) # new
@@ -43,13 +49,6 @@ def slug_save(obj):
             if slug_is_wrong:
                 # create another slug and check it again
                 obj.slug = get_random_string(100)
-
-class Premium(models.Model):
-    name = models.CharField(max_length=100)
-    post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    # status = models.BooleanField(default=False)
-    datetime = models.DateTimeField()
-    # price (?)
 
 class WheelImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

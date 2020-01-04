@@ -9,5 +9,7 @@ urlpatterns = [
     path('search/', store_view.SearchResultView.as_view(), name='search-results'),
     path('', store_view.HomePageView.as_view(), name='home'),
     path('<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
-    path('charge', store_view.charge_view, name='charge-success'),
+    path('charge', store_view.charge_view, name='post-charge'),
+    path('success', store_view.charge_view, name='payment-success'),
+    path('webhook', store_view.my_webhook_view, name='webhook'),
 ]

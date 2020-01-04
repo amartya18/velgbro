@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, WheelImage
+from .models import Post, WheelImage, Premium
 from products.models import Wheel
 
 
@@ -12,10 +12,10 @@ class PostAdmin(admin.ModelAdmin):
         WheelInline
     ]
 
-    list_display = ('wheel_name', 'wheel_ring_size', 'wheel_width', 'wheel_bolt_pattern', 'user', 'datetime')
+    list_display = ('post_name', 'wheel_ring_size', 'wheel_width', 'wheel_bolt_pattern', 'user', 'datetime')
 
-    def wheel_name(self, post):
-        return post.wheel
+    def post_name(self, post):
+        return post
 
     def wheel_ring_size(self, post):
         return post.wheel.ring_size
@@ -28,3 +28,4 @@ class PostAdmin(admin.ModelAdmin):
 
 admin.site.register(WheelImage)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Premium)

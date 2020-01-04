@@ -14,9 +14,21 @@
     <option value="{{ item }}">{{ item }}</option>
     {% endfor %}
   </select>
-  <select name="boltpattern">
+  <select name="boltpattern"> 
     <option value="">Bolt Pattern</option>
     {% for item in boltpattern %}
+    <option value="{{ item }}">{{ item }}</option>
+    {% endfor %}
+  </select>
+  <select name="brand"> 
+    <option value="">Wheel Brand</option>
+    {% for item in brand %}
+    <option value="{{ item }}">{{ item }}</option>
+    {% endfor %}
+  </select>
+  <select name="model"> 
+    <option value="">Wheel Model</option>
+    {% for item in model %}
     <option value="{{ item }}">{{ item }}</option>
     {% endfor %}
   </select>

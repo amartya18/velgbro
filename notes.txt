@@ -4,11 +4,22 @@ current progress:
 * login 
 * log out
 * profile
+* search
 
 todos:
-* post's hit/visitors count
-* search
-* finish all wheel attributes
+
+main
+* premium
 * comments
 * wishlist
-* add django messages
+
+* add attribute and table premium, default=blank
+* set the price in table premium
+* redirect to a view that pays (can only be accessed trough redirect)
+
+side
+* post's hit/visitors count
+* finish all wheel attributes
+* add django messages - unsure
+* refractor post view and others
+* add base html and base heading (?)

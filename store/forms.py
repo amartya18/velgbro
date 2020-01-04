@@ -5,12 +5,12 @@ from products.models import Wheel
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ()
+        fields = ('premium',)
 
 class ProductForm(ModelForm):
     class Meta:
         model = Wheel
-        fields = ('name','ring_size','width','bolt_pattern')
+        fields = ('model','name','ring_size','width','bolt_pattern')
 
 class ImageForm(ModelForm):
     class Meta:

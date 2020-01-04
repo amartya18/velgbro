@@ -1,18 +1,6 @@
 <!-- article_detail.html -->
 <div>
-  <h2>{{ object.user.username }}</h2>
-  <p>{{ object.user.email }}</p>
+  <h2>{{ object }}</h2>
+  <p>{{ object.user }}</p>
   <p>{{ object.datetime }}</p>
 </div>
-
-<h3>{{ post_object.user.username }}</h3>
-
-<h2>Buy for ${{ price_stripe }}</h2>
-<form action="{% url 'charge-success' %}" method="post">
-  {% csrf_token %}
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="{{ key }}"
-          data-description="A Django Charge"
-          data-amount="{{ price_stripe }}"
-          data-locale="auto"></script>
-</form>

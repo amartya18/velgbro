@@ -2,19 +2,7 @@
 {% load static %}
 {% block content %}
 
-<h1>Search Result</h1>
-<ul>
-    {% for post in posts %}
-    <li>
-         {{ post }} </a>
-        {% for image in post.wheelimage_set.all %}
-        <img src="{{ image.image.url }}" alt="wheel">
-        {% endfor %}
-    </li>
-    {% endfor %}
-</ul>
-
-
+<div class="pt-5 mt-5 text-center"><h1>Search result:</h1></div>
 <div class="container">
     {% for post in posts %}
 

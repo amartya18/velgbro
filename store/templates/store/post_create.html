@@ -1,3 +1,7 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block content %}
+<!-- <div class="pt-5 mt-5"></div>
 <div class="row">
     <div class="col-md-6">
         <form method="POST" enctype="multipart/form-data" action="{% url 'create-post' %}">
@@ -8,4 +12,108 @@
             <button type="submit">create post</button>
         </form>
     </div>
+</div> -->
+
+
+<div class="pt-5 mt-5"></div>
+<div class="container">
+<form method="POST" enctype="multipart/form-data" action="{% url 'create-post' %}">
+{% csrf_token %}
+  <h2 class="pb-3">Sell my wheel</h2>
+  <div style="max-width: 400px;" class="text-left">
+  <table class="table table-borderless pl-0">
+
+    <div class="input-group mb-3">
+      <div class="custom-file">
+        {{ image_form }}
+        <!-- <label class="custom-file-label" for="inputGroupFile02">Choose file</label> -->
+      </div>
+    </div>
+    <tr>
+        <!--Premium-->
+        <td scope="col">{{post_form.premium.label}}</td>
+        <td scope="col"> {{post_form.premium}}
+          <!-- <input type="text" name="wheel_brand2" id="wheel_brand2" style="display:none" placeholder="Wheel Brand"> -->
+        </td>
+      </tr>
+    <tr>
+      <!--Title-->
+      <td>{{product_form.name.label}}</td>
+      <td>{{product_form.name}}</td>
+    </tr>
+    <tr>
+        <!--Price-->
+        <td>{{product_form.price.label}}</td>
+        <td>{{product_form.price}}</td>
+      </tr>
+    <tr>
+        <!--CONDITION-->
+        <td>{{product_form.condition.label}}</td>
+        <td>{{product_form.condition}}</td>
+      </tr>
+    <tr>
+      <!--Description BELOm-->
+      <td>Description</td>
+      <td> <textarea name="description" id="desc" class="input-xlarge" placeholder="insert description here"></textarea></td>
+    </tr>
+    <tr>
+      <!--MODEL-->
+      <td scope="col">{{product_form.model.label}}</td>
+      <td scope="col"> {{product_form.model}}
+      </td>
+    </tr>
+    
+    <tr>
+      <!--BOLT PATTERN-->
+      <td scope="col">{{product_form.bolt_pattern.label}}</td>
+      <td scope="col"> {{product_form.bolt_pattern}}
+    in</tr>
+    <tr>
+        <td scope="col">{{product_form.diameter.label}}</td>
+        <td scope="col"> {{product_form.diameter}}
+      in</tr>
+    </tr>
+    <!--WIDTH-->
+    <tr>
+        <td scope="col">{{product_form.width.label}}</td>
+        <td scope="col"> {{product_form.width}}
+      in</tr>
+    </tr>
+    <!--OFFSET-->
+    <tr>
+        <td scope="col">{{product_form.offset.label}}</td>
+        <td scope="col"> {{product_form.offset}}
+    cm</tr>
+    </tr>
+    <tr>
+        <!--COLOR-->
+        <td scope="col">{{product_form.color.label}}</td>
+        <td scope="col"> {{product_form.color}}
+        </td>
+      </tr>
+    <tr>
+        <!--MATERIAL-->
+        <td scope="col">{{product_form.material.label}}</td>
+        <td scope="col"> {{product_form.material}}
+        </td>
+      </tr>
+    
+    </table>
+  </div>
+  
+  
+  <p><textarea name="terms" id="terms" readonly="readonly" style="height:200px;width:60%">TERMS OF USE
+  
+  PLEASE READ THESE TERMS OF USE CAREFULLY BEFORE USING THIS SITE TO BE SURE YOU UNDERSTAND THEM COMPLETELY. USE OF THIS SITE CONSTITUTES YOUR AGREEMENT TO BE BOUND BY AND ADHERE TO
+  
+  All information on this website or offered through communications related to this site are for information use only. You should always consult with a wheel and tire professional before purchasing anything or modifying your vehicle. Custom Offsets LLC, it's members and founders can not be held liable for any information shared on this site.
+  
+  THESE TERMS OF USE
+  
+</textarea>
+<!-- <br><input type="checkbox" name="agree" id="agree" required=""> <label for="agree" style="float:none;width:auto">I agree with the terms of service</label></p> -->
+   
+  <p><input type="submit" value="SUBMIT" class="btn btn-primary"></p>
+  </form>
 </div>
+{% endblock %}

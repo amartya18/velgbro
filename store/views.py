@@ -14,6 +14,7 @@ from django.utils import timezone
 from django.db.models import Q
 from django.forms.models import modelformset_factory
 from urllib.parse import urlencode
+from users.models import Wishlist
 from store.models import Post
 from users.models import Wishlist
 
@@ -110,8 +111,9 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs): # stripe
         context = super().get_context_data(**kwargs)
-        current_wishlist = Wishlist.objects.filter(user=self.user,)
-        context['current_wishlist'] = current_wishlist.filter(wheel=self.object) 
+        current_wishlist = Wishlist.objects.filter(user=self.request.user)
+        context['current_wishlist'] = current_wishlist.filter(wheel=self.object).first()
+        context['current_user'] = self.request.user
         return context
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -182,7 +184,10 @@ def add_wishlist_view(request, slug):
     return redirect('post-detail', slug=slug)
 
 class WishlistView(ListView):
-    model = Post
+    model = Wishlist
     template_name = 'store/wishlist.html'
     context_object_name = 'wishlist'
     ordering = ['-datetime'] 
+
+    def get_queryset(self):
+        return Wishlist.objects.filter(user=self.request.user)

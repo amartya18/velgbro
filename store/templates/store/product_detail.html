@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="CSS/custom.css">
+
+   <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>VelgBro</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style type="text/css">
+    img{
+      width: 100%;
+      height: 500px;
+    }
+     #slider{
+      width: 604px;
+      height: 525px;
+      /*margin: 20px auto;*/
+      position: relative;
+      border: 10px solid white;
+      box-shadow: 0px 0px 5px 2px #ccc;
+     }
+     button{
+      padding: 20px;
+      border: none;
+      background: #37f;
+      font-size: 30px;
+      color: white;
+      position: absolute;
+      top:45%;
+      cursor: pointer;
+     }
+
+
+        .next{
+          border-radius: 10px 0px 0px 10px;
+          margin-left: 532.5px;
+        }
+        .prew{
+          border-radius: 0px 10px 10px 0px;
+
+        }
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+    div.fixed {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+} 
+    .vl {
+  border-left: 1px solid black;
+  height: 500px;
+}
+    .wrapper{
+      display:grid;
+      grid-template-columns:3fr 1fr;
+      grid-auto-rows:minmax(100px, auto);
+      grid-gap:1em;
+      justify-items:stretch;
+      align-items:stretch;
+    }
+
+    .wrapper > div{
+      background:#fff;
+      padding:1em;
+    }
+    .wrapper > div:nth-child(odd){
+      background:#fff;
+    }
+
+    .box1{
+      /*align-self:start;*/
+      grid-column:1/4;
+      grid-row:1;
+    }
+
+    .box2{
+      /*align-self:end;*/
+      /*grid-column:1/2;*/
+      grid-row:2;
+      grid-auto-rows:minmax(100px, auto);
+    }
+
+    .box3{
+      /*justify-self:end;*/
+      grid-column:2/4;
+      grid-row:2/9;
+    }
+
+    .box4{
+      grid-column:1;
+      grid-row:2/4;
+      border:1px solid #333;
+    }
+    .box5{
+      grid-column: 2/4;
+      grid-row: 3/6;
+    }
+    .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  margin:750px 0px;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+        <img src="img/logo.png" width=50 alt="">
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link waves-effect" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="sell.html" target="_blank">Sell</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
+              target="_blank">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="profile.html" target="_blank">My Profile</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link waves-effect">
+              <span class="badge red z-depth-1 mr-1"> 1 </span>
+              <i class="fas fa-shopping-cart"></i>
+              <span class="clearfix d-none d-sm-inline-block"> Wishlist </span>
+            </a>
+          </li>
+          <!--THIS PART IS HIDDEN, DELETE d-none class to see-->
+          <!-- <div class="">   -->
+          <li class="nav-item">
+            <a href="signin.html" class="nav-link border border-light rounded waves-effect ml-2"
+              target="_blank">
+              Sign In
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="signup.html" class="nav-link border border-light rounded waves-effect ml-2"
+              target="_blank">
+              Sign Up
+            </a>
+          </li>
+        <!-- </div> -->
+        <!-- YES-->
+        <!--HOW IT LOOKS KALO UDAHH LOGIN-->
+        <div class="d-none">
+        <li class="nav-item">
+          <a href="signup.html" class="nav-link waves-effect ml-2"
+            target="_blank">
+            <i class="far fa-user"></i>
+            <strong>MarcAntonio</strong>
+          </div>
+        <!--WOHOO-->
+            
+          </a>
+        </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  
+
+  <!--Main layout-->
+  <!-- Image Slider -->
+  <div class="container">
+  <main>
+    <div class="pt-5"></div>
+    <div class="pt-5"></div>
+
+      <div class = "wrapper" >
+        <div class="box box1">
+
+        <h5 class = "text-primary">2016 Volkswagen Scirocco 1.4 TSI Hatchback</h5> 
+        <p> Diperbarui pada: 02 Januari 2020</p>
+        <h4><strong>Rp400.000.000</strong></h4>
+
+      </div>
+
+    <div>
+    <div id="slider">
+      <div id="box">
+      <img src="https://img1.icarcdn.com/1122546/gallery_used-car-mobil123-volkswagen-scirocco-tsi-hatchback-indonesia_1122546_jgzdj3Ruxu3bTe8VnZLvwG.jpeg?smia=xTM.jpg">
+      </div>
+
+    <!-- buttons for controls slider -->
+    <button class="prew fa fa-chevron-left" onclick="prewImage()"></button>
+    <button class="next fa fa-chevron-right" onclick="nextImage()"></button>
+  
+    </div>
+
+
+
+  <script type="text/javascript">
+
+    var slider_content = document.getElementById('box');
+
+    // contain images in an array
+    var image = ['https://img1.icarcdn.com/1122546/gallery_used-car-mobil123-volkswagen-scirocco-tsi-hatchback-indonesia_1122546_jgzdj3Ruxu3bTe8VnZLvwG.jpeg?smia=xTM','https://img3.icarcdn.com/1122546/gallery_used-car-mobil123-volkswagen-scirocco-tsi-hatchback-indonesia_1122546_LjSu7Uw05aE6XgyEsFT3mv.jpeg?smia=xTM', 'https://img4.icarcdn.com/1122546/gallery_used-car-mobil123-volkswagen-scirocco-tsi-hatchback-indonesia_1122546_VoE6ksXBjOuR4gmLCyGiT8.jpeg?smia=xTM'];
+
+    var i = image.length;
+
+
+    // function for next slide 
+
+    function nextImage(){
+      if (i<image.length) {
+        i= i+1;
+      }else{
+        i = 1;
+      }
+        slider_content.innerHTML = "<img src="+image[i-1]+".jpg>";
+    }
+
+
+    // function for prew slide
+
+    function prewImage(){
+
+      if (i<image.length+1 && i>1) {
+        i= i-1;
+      }else{
+        i = image.length;
+      }
+        slider_content.innerHTML = "<img src="+image[i-1]+".jpg>";
+
+    }
+
+  
+  // script for auto image slider
+
+  setInterval(nextImage , 4000);
+
+  </script>
+  </div>
+<!-- image slider -->
+<div >
+<div><h2>Spesifikasi Ringkas</h2></div>
+  <hr>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+  <div>
+    <span>Tipe Mobil:</span>
+    <span class="float-right">Mobil Bekas</span>
+  </div>
+  <br>
+</div>
+<div class="vl"></div>
+<div>
+  <h4>Komentar Penjual</h4>
+  <hr>
+  <p>mobil mulus, bagus
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+ 
+</div>
+<div>
+  <h2><b>Spesifikasi & Kelengkapan</b></h2>
+  <div>
+    <h4>Transmisi</h4><hr>
+    <div>
+      <span>Transmisi:</span>
+      <span class="float-right">Automatic</span>
+    </div>
+    <div>
+      <span >Jumlah Gir:</span>
+      <span class="float-right">7</span>
+     </div>
+  </div>
+  <br>
+  <div>
+    <h4>General</h4><hr>
+    <div>
+      <span>Transmisi:</span>
+      <span class="float-right">Automatic</span>
+    </div>
+    <div>
+      <span >Jumlah Gir:</span>
+      <span class="float-right">7</span>
+     </div>
+  </div>
+  <br>
+  <div>
+    <h4>Spesifikasi Mesin</h4><hr>
+    <div>
+      <span>Transmisi:</span>
+      <span class="float-right">Automatic</span>
+    </div>
+    <div>
+      <span >Jumlah Gir:</span>
+      <span class="float-right">7</span>
+     </div>
+  </div>
+  <br>
+  <div>
+    <h4>Kinerja & Ekonomi</h4><hr>
+    <div>
+      <span>Transmisi:</span>
+      <span class="float-right">Automatic</span>
+    </div>
+    <div>
+      <span >Jumlah Gir:</span>
+      <span class="float-right">7</span>
+     </div>
+  </div>
+  <br>
+
+  
+</div>
+<div class="box box5">
+  <div><h2><b>KOMENTAR</b></h2></div><hr>
+  <div>
+  Comment:
+  <br>
+  <textarea name="" cols="50" rows="10" placeholder="please enter your comment here."> </textarea>
+  </div>
+  <div>
+    <a href="#"><button class="button">Enter</button></a>
+  </div>
+</div>
+
+  </main>
+</div>
+  <!--Main layout-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="fixed">
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+    <hr class="my-4">
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2020 Copyright:
+      <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> VelgBro.com</a>
+    </div>
+    <!--/.Copyright-->
+  </footer>
+  </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

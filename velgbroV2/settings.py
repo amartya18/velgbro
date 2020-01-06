@@ -84,9 +84,6 @@ DATABASES = {
         'USER': 'devuser',
         'PASSWORD': 'root',
         'HOST': '192.168.64.2',
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-        }
         # 'PORT': '6969'
     }
 }

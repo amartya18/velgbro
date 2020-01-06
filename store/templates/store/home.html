@@ -1,4 +1,564 @@
-<h1>HomePage</h1>
+{% extends "store/base.html" %}
+{% load static %}
+{% block content %}
+
+  <!--Carousel Wrapper-->
+  <div id="carousel-example-1z" class="carousel slide carousel-fade pt-4 mt-4" data-ride="carousel">
+
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+      <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+    </ol>
+    <!--/.Indicators-->
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+
+      <!--First slide-->
+      <div class="carousel-item active">
+        <div class="view" style="background-image:url({% static 'store/img/carousel/carousel1.jpg' %}); background-repeat: no-repeat; background-size: cover;">
+
+          <!-- Mask & flexbox options-->
+          <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+              <h1 class="mb-4">
+                <strong>VELGBRO SELLS YOUR WHEEL IN JUST WEEKS</strong>
+              </h1>
+
+              <p>
+                <strong>YOUR NUMBER 1 WHEEL BRO!</strong>
+              </p>
+
+              <p class="mb-4 d-none d-md-block">
+                <strong>SELL YOUR WHEEL ANYTIME, FREE</strong>
+              </p>
+
+              <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-outline-white btn-lg">ADD MY WHEEL!
+              </a>
+            </div>
+            <!-- Content -->
+
+          </div>
+          <!-- Mask & flexbox options-->
+
+        </div>
+      </div>
+      <!--/First slide-->
+
+      <!--Second slide-->
+      <div class="carousel-item">
+        <div class="view" style="background-image: url({% static 'store/img/carousel/carousel3.jpg' %}); background-repeat: no-repeat; background-size: cover;">
+
+          <!-- Mask & flexbox options-->
+          <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+              <h1 class="mb-4">
+                <strong>Find your Perfect wheel here</strong>
+              </h1>
+
+              <p>
+                <strong>We have the perfect search engine for you!</strong>
+              </p>
+
+              <p class="mb-4 d-none d-md-block">
+              </p>
+
+              <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-outline-white btn-lg">TRY IT NOW!
+              </a>
+            </div>
+            <!-- Content -->
+
+          </div>
+          <!-- Mask & flexbox options-->
+
+        </div>
+      </div>
+      <!--/Second slide-->
+
+      <!--Third slide-->
+      <div class="carousel-item">
+        <div class="view" style="background-image: url({% static 'store/img/carousel/carousel3.png' %}); background-repeat: no-repeat; background-size: cover;">
+
+          <!-- Mask & flexbox options-->
+          <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+              <h1 class="mb-4">
+                <strong>SEE ALL WHEELS THAT YOU LIKE</strong>
+              </h1>
+
+              <p>
+                <strong>Add the wheels that you love to your wishlist and be happy!</strong>
+              </p>
+
+              <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-outline-white btn-lg">See my Wishlist               <i class="fas fa-shopping-cart"></i>
+
+                
+              </a>
+            </div>
+            <!-- Content -->
+
+          </div>
+          <!-- Mask & flexbox options-->
+
+        </div>
+      </div>
+      <!--/Third slide-->
+
+    </div>
+    <!--/.Slides-->
+
+    <!--Controls-->
+    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <!--/.Controls-->
+
+  </div>
+  <!--/.Carousel Wrapper-->
+
+  <!--Main layout-->
+  <main>
+    <div class="container">
+      <div class="title text-center mt-4">
+        <h1>SEARCH WHEELS</h1>
+      </div>
+      <form action="{% url 'search-results' %}" method="GET">
+        <div class="search-bar row text-center p-4 mt-4">
+          <div class="col-md-2 col-sm-12 search">
+            <select class="search-select" name="ringsize">
+              <option value="">Ring Size</option>
+              {% for item in ringsize %}
+              <option value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+          </select>
+        </div>
+          <div class="col-md-2 col-sm-12 search">
+            <select  class="search-select" name="width">
+              <option value="">Width</option>
+              {% for item in width %}
+              <option value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2 col-sm-12 search">
+            <select class="search-select" name="boltpattern"> 
+              <option value="">Bolt Pattern</option>
+              {% for item in boltpattern %}
+              <option value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2 col-sm-12 search">
+            <select class="search-select" name="brand"> 
+              <option value="">Wheel Brand</option>
+              {% for item in brand %}
+              <option value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2 search">
+            <select class="search-select" name="model"> 
+              <option value="">Wheel Model</option>
+              {% for item in model %}
+              <option value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
+          </div>
+          </div>
+        </form>
+      
+
+
+    <div class="title text-center mt-4">
+      <h1>POPULAR WHEELS <i class="fas fa-fire-alt"></i></h1>
+    </div>
+
+      <!--Section: Products v.3-->
+      <section class="text-left mb-4">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card card-small hot_card">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img src="img/wheel/wheelsale (1).png" class="card-img-top"
+                alt="">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+                <div class=wheel-tag>HOT</div>
+              </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+              <!--Category & Title-->
+              <a href="" class="grey-text">
+                <h5>USED</h5>
+              </a>
+              <div class=" wheel-title text-center">2017 Enkei RPF1 1.0 harga terbaik</div>
+
+              <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 12.000.000</div>
+
+
+            </div>
+            <!--Card content-->
+
+          </div>
+          <!--Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6">
+
+          <!--Card-->
+          <div class="card card-small">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img src="img/wheel/wheelsale (2).png" class="card-img-top"
+                alt="">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+              <!--Category & Title-->
+              <a href="" class="grey-text">
+                <h5>NEW</h5>
+              </a>
+              <div class=" wheel-title text-center">VELG Racing COSMIC BARU</div>
+
+              <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 16.700.000</div>
+
+            </div>
+            <!--Card content-->
+
+          </div>
+          <!--Card-->
+          
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 ">
+
+          <!--Card-->
+          <div class="card card-small">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img src="img/wheel/wheelsale (3).png" class="card-img-top"
+                alt="">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+              <!--Category & Title-->
+              <a href="" class="grey-text">
+                <h5>NEW</h5>
+              </a>
+              <div class=" wheel-title text-center">TE37 Rep seperti ASLI</div>
+
+              <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 5.000.000</div>
+
+            </div>
+            <!--Card content-->
+
+          </div>
+          <!--Card-->
+          
+
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 ">
+
+          <!--Card-->
+          <div class="card card-small">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img src="img/wheel/wheelsale (4).png" class="card-img-top"
+                alt="">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+              <!--Category & Title-->
+              <a href="" class="grey-text">
+                <h5>USED</h5>
+              </a>
+              <div class=" wheel-title text-center">KIWAMI MULTISPOKE + BAN MICHELIN</div>
+
+              <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 27.000.000</div>
+
+            </div>
+            <!--Card content-->
+
+          </div>
+          <!--Card-->
+          
+
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 ">
+
+          <!--Card-->
+          <div class="card card-small">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img src="img/wheel/wheelsale (5).png" class="card-img-top"
+                alt="">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+              <!--Category & Title-->
+              <a href="" class="grey-text">
+                <h5>USED</h5>
+              </a>
+              <div class=" wheel-title text-center">2017 Enkei RPF1 1.0 harga terbaik</div>
+
+              <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 12.000.000</div>
+
+            </div>
+            <!--Card content-->
+
+          </div>
+          <!--Card-->
+          
+
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 ">
+
+          <!--Card-->
+          <div class="card card-small">
+
+            <!--Card image-->
+            <div class="view overlay">
+              <img src="img/wheel/wheelsale (6).png" class="card-img-top"
+                alt="">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+            <!--Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center">
+              <!--Category & Title-->
+              <a href="" class="grey-text">
+                <h5>NEW</h5>
+              </a>
+              <div class=" wheel-title text-center">2017 Enkei RPF1 1.0 harga terbaik</div>
+
+              <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 12.000.000</div>
+
+            </div>
+            <!--Card content-->
+
+          </div>
+          <!--Card-->
+          
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid Row-->
+
+      </section>
+      <!--FInish Card Section-->
+
+
+        
+
+
+        <div class="container">
+          <!-- CARD PRODUCTS-->
+          <div class="card mb-3">
+              <div class="row no gutters py-3">
+                <div class=" col-md-4 text-center">
+                  <img  class = "wheel-img" src="img/wheel/wheelsale (2).png" alt="">
+                </div>
+                <div class="col-md-4 p pl-0">
+                  <div class=" wheel-title text-left">2017 Enkei RPF1 1.0 harga terbaik</div>
+                  <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">Velg kesayangan
+                    orang tua banget nih pokoknya content sangat panjang alhamdulila
+                  </span>
+                  <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 12.000.000</div>
+                  
+                  <button type="button " class=" m-0 mt-1 btn btn-primary btn-sm mt-4 mb-1">Add to wishlist</button>
+                  <div><small>seen by 53 others</small></div>
+                </div>
+                  <div class="col-md-4">
+                    <div class="text-center desc_panel">Regular</div>
+                    
+                    <div class="box text-left p-2 mr-3 mt-3">
+                      <div class="item-info"> <i class="fas fa-dharmachakra"></i> : 5x120</div>
+                      <div class="item-info"><i class="fas fa-ring"></i> : 17"</div>
+                      <div class="item-info"><i class="fas fa-car-alt"></i> : 8.5 , 9.5</div>
+                      <div class="item-info"><i class="fas fa-arrows-alt-h"></i> : +35, +37</div>
+                    </div>
+                    <div style="text-align: center;">
+                    <button type="button " class="mt-3 btn btn-outline-info btn-sm mx-2">Contact</button>
+                    <button type="button " class="mt-3 btn btn-outline-success btn-sm mx-2">Whatsapp</button>
+                  </div>
+                  </div>
+              </div>
+           </div>
+           <!-- CARD PRODUCTS-->
+
+           <!-- CARD PRODUCTS-->
+          <div class="card hot_card mb-3">
+            <div class="row no gutters py-3">
+              <div class=" col-md-4 text-center">
+                <img  class = "wheel-img" src="img/wheel/wheelsale (3).png" alt="">
+                <div class=wheel-tag>HOT</div>
+              </div>
+              <div class="col-md-4 p pl-0">
+                <div class=" wheel-title text-left">2nd Rep. ZE40</div>
+                <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">Velg kesayangan
+                  Kondisi no repair no repaint
+                  Super copy like original                </span>
+                <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 27.860.000</div>
+                
+                <button type="button " class=" m-0 mt-1 btn btn-primary btn-sm mt-4 mb-1">Add to wishlist</button>
+                <div><small>seen by 53 others</small></div>
+              </div>
+                <div class="col-md-4">
+                  <div class="text-center desc_panel hot">Description</div>
+                  
+                  <div class="box text-left p-2 mr-3 mt-3">
+                    <div class="item-info"> <i class="fas fa-dharmachakra"></i> : 5x120</div>
+                    <div class="item-info"><i class="fas fa-ring"></i> : 17"</div>
+                    <div class="item-info"><i class="fas fa-car-alt"></i> : 8.5 , 9.5</div>
+                    <div class="item-info"><i class="fas fa-arrows-alt-h"></i> : +35, +37</div>
+                  </div>
+                  <div style="text-align: center;">
+                  <button type="button " class="mt-3 btn btn-outline-info btn-sm mx-2">Contact</button>
+                  <button type="button " class="mt-3 btn btn-outline-success btn-sm mx-2">Whatsapp</button>
+                </div>
+                </div>
+            </div>
+         </div>
+         
+         <!-- CARD PRODUCTS-->
+
+         <!-- CARD PRODUCTS-->
+         <div class="card mb-3">
+          <div class="row no gutters py-3">
+            <div class=" col-md-2 pl-5 pr-0 text-center">
+              <div class="comment-pic">
+                <img src="img/character.jpg" alt="">
+              </div>
+            </div>
+            <div class="col-md-10 p pl-0  ">
+              <div class=" wheel-title text-left">MarcAntonio Smap</div>
+              <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">
+                ini isi komen saya ini sangat keeren sih menurut kuy
+                 hhhahahha belini isi komen saya ini sangat keeren sih 
+                 menurut kuy hhhahahha belini isi komen saya ini sangat</span> 
+                <div><small>50 minutes ago</small></div>
+            </div>
+              
+          </div>
+       </div>
+
+        </div>
+
+      </section>
+      <!--Section: Products v.3-->
+
+      <!--Pagination-->
+      <nav class="d-flex justify-content-center wow fadeIn">
+        <ul class="pagination pg-blue">
+
+          <!--Arrow left-->
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+
+          <li class="page-item active">
+            <a class="page-link" href="#">1
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">3</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">4</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">5</a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!--Pagination-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+<!-- <h1>HomePage</h1>
 
 <h2>Dropdown List Search</h2>
 <form action="{% url 'search-results' %}" method="GET">
@@ -39,4 +599,6 @@
 <form action="{% url 'search-results' %}" method="GET">
   <input name="name" type="text" placeholder="Search...">
   <button type="submit">Search</button>
-</form>
+</form> -->
+
+{% endblock %}

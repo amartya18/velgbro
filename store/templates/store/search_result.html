@@ -1,11 +1,73 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block content %}
+
 <h1>Search Result</h1>
 <ul>
     {% for post in posts %}
     <li>
-        <a href="{{ post.get_absolute_url }}"> {{ post }} </a>
+         {{ post }} </a>
         {% for image in post.wheelimage_set.all %}
         <img src="{{ image.image.url }}" alt="wheel">
         {% endfor %}
     </li>
     {% endfor %}
 </ul>
+
+
+<div class="container">
+    {% for post in posts %}
+
+    <!-- CARD PRODUCTS-->
+    
+    {% if post.premium.name == 'basic' %}
+    <div class="card mb-3">
+        {% else %}
+    <div class="card hot_card mb-3">
+    {% endif %}
+        <div class="row no gutters py-3">
+          <div class=" col-md-4 text-center">
+            <img  class = "wheel-img" src="{{post.wheelimage_set.all.first.image.url}}" alt="">
+            {% if post.premium.name == 'premium' %}
+            <div class=wheel-tag>HOT</div>
+            {% endif %}
+
+          </div>
+          <div class="col-md-4 p pl-0">
+            <a href="{{ post.get_absolute_url }}"><div class=" wheel-title text-left">{{post}}</div></a>
+
+            <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">{{post.wheel.description}}
+            </span>
+            <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp.{{post.wheel.price}}</div>
+            
+            <button type="button " class=" m-0 mt-1 btn btn-primary btn-sm mt-4 mb-1">Add to wishlist</button>
+            <div><small>seen by 53 others</small></div>
+          </div>
+            <div class="col-md-4">
+                {% if post.premium.name == 'basic' %}
+                <div class="text-center desc_panel">Regular</div>
+
+              {% else %}
+              <div class="text-center desc_panel_hot">Premium</div>
+              {% endif %}
+
+              
+              <div class="box text-left p-2 mr-3 mt-3">
+                <div class="item-info"> <i class="fas fa-dharmachakra"></i> Bolt pattern : <b>{{post.wheel.bolt_pattern}}</b></div>
+                <div class="item-info"><i class="fas fa-ring"></i> Ring size : <b>{{post.wheel.ring_size}}"</b></div>
+                <div class="item-info"><i class="fas fa-car-alt"></i> Wheel width : <b>{{post.wheel.width}}"</b></div>
+                <div class="item-info"><i class="fas fa-arrows-alt-h"></i> offset :<b>{{post.wheel.offset}} cm</b></div>
+              </div>
+              <div style="text-align: center;">
+              <button type="button " class="mt-3 btn btn-outline-info btn-sm mx-2">Contact</button>
+              <button type="button " class="mt-3 btn btn-outline-success btn-sm mx-2">Whatsapp</button>
+            </div>
+            </div>
+        </div>
+     </div>
+    </div>
+     {% endfor %}
+     <!-- CARD PRODUCTS-->
+</div>
+    
+{% endblock %}

@@ -7,18 +7,19 @@ class PostForm(ModelForm):
         model = Post
         fields = ('premium',)
 
-class ProductBaseForm(ModelForm):
-    class Meta:
-        fields = ('model','name','ring_size','width','bolt_pattern','offset')
-
-
-class ProductForm(ProductBaseForm):
-    offset_type_choice = (('+','+'),('-','-'))
-    offset_type = ChoiceField(choices=offset_type_choice)
-
+class ProductForm(ModelForm):
     class Meta:
         model = Wheel
-        fields = ProductBaseForm.Meta.fields + ('offset_type',)
+        fields = ('model','name','ring_size','width','bolt_pattern', 'color', 'material','offset', 'condition', 'price')
+
+
+# class ProductForm(ProductBaseForm):
+#     offset_type_choice = (('',''),('+','+'),('-','-'))
+#     offset_type = ChoiceField(choices=offset_type_choice)
+
+#     class Meta:
+#         model = Wheel
+#         fields = ProductBaseForm.Meta.fields + ('offset_type',)
 
 
 class ImageForm(ModelForm):

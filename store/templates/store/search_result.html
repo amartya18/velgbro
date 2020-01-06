@@ -2,7 +2,7 @@
 <ul>
     {% for post in posts %}
     <li>
-        <a href="{{ post.get_absolute_url }}"> {{ post.wheel }} </a>
+        <a href="{{ post.get_absolute_url }}"> {{ post }} </a>
         {% for image in post.wheelimage_set.all %}
         <img src="{{ image.image.url }}" alt="wheel">
         {% endfor %}

@@ -4,3 +4,11 @@
   <p>{{ object.premium }}</p>
   <p>{{ object.user }}</p>
   <p>{{ object.datetime }}</p>
+
+  <a href=""></a>
+
+  {% for image in object.wheelimage_set.all %}
+  <img src="{{ image.image.url }}" alt="wheel">
+  {% endfor %}
+
+</div>

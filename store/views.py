@@ -128,6 +128,11 @@ def create_post_view(request):
             post.premium = Premium.objects.all()[0]
             product = product_form.save(False)
             product.post = post
+
+            # print("OFFSET TYPE:")
+            # print(post_form)
+            # post.cleaned_data.pop('offset_type')
+
             post.save()
             product.save()
 

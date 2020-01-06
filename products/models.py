@@ -66,6 +66,6 @@ class Wheel(models.Model): # everything should be CASCADE
     def save(self, *args, **kwargs):
         # save offset value based on offset type (+/-)
         super(Wheel, self).save(*args, **kwargs)
-        self.offset_type
-        if self.offset_type == '-':
-            self.offset *= -1
+        # self.offset_type
+        # if self.offset_type == '-':
+        #     self.offset *= -1

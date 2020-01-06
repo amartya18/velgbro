@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Profile
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
@@ -17,3 +18,14 @@ class SignUpForm(UserCreationForm):
             
             'username': forms.TextInput(attrs={'placeholder':'Username'}),
         }
+class UserUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'E-mail'}))
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+class ProfileUpdateForm(forms.ModelForm):
+    # phone_number = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Phone-number'}))
+    class Meta:
+        model = Profile
+        fields = ('profile_picture', 'phone_number')

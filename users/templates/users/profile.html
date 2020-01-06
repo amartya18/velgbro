@@ -1,7 +1,20 @@
 {% extends "store/base.html" %}
+{% include "navbar.html" %}
 {% block content %}
 
+
+
   <div class="profile pt-5 mt-5 ">
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+     {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
     <h1 class="text-center">Profile</h1>
     <div class="container">
       <div class="row">
@@ -21,9 +34,10 @@
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star"></span>
-          <p><a href="{% url 'logout' %}">Update profile</a></p>
-
           <p><a href="{% url 'logout' %}">logout</a></p>
+          <p><a href="{% url 'update' %}">update</a></p>
+          <p><a href="{% url 'change' %}">change password</a></p>
+
         </div>
       </div>
     </div>

@@ -1,9 +1,30 @@
-<h2>Buy for ${{ price_stripe }}</h2>
-<form action="{% url 'charge-success' %}" method="post">
-  {% csrf_token %}
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="{{ key }}"
-          data-description="A Django Charge"
-          data-amount="{{ price_stripe }}"
-          data-locale="auto"></script>
-</form>
+<!-- Load Stripe.js on your website. -->
+<script src="https://js.stripe.com/v3"></script>
+
+<script>
+function stripe_payment() {
+  var stripe = Stripe('pk_test_FcYY2gaPTfUiRjpr6biHwvqQ00HS8uTC0v');
+
+    stripe.redirectToCheckout({
+        sessionId: "{{ sessionId }}"
+    //   items: [{sku: 'sku_GU5pnpZR72r1tA', quantity: 1, }],
+
+    //   // Do not rely on the redirect to the successUrl for fulfilling
+    //   // purchases, customers may not always reach the success_url after
+    //   // a successful payment.
+    //   // Instead use one of the strategies described in
+    //   // https://stripe.com/docs/payments/checkout/fulfillment
+    //   successUrl: 'http://localhost:8000',
+    //   cancelUrl: 'http://localhost:8000/post',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  }
+  window.onload = stripe_payment;
+</script>

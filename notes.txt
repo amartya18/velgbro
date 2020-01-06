@@ -8,18 +8,18 @@ current progress:
 
 todos:
 
+* update and delete
+* post should be the one with onetoone
+
 main
-* premium
 * comments
 * wishlist
 
-* add attribute and table premium, default=blank
-* set the price in table premium
-* redirect to a view that pays (can only be accessed trough redirect)
+* offset + and - dropdown form
 
 side
 * post's hit/visitors count
-* finish all wheel attributes
-* add django messages - unsure
+* finish all wheel attributes (color, material, offset)
+* add django messages - to confirm succesful post
 * refractor post view and others
 * add base html and base heading (?)

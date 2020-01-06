@@ -17,7 +17,6 @@ class Post(models.Model):
     datetime = models.DateTimeField()
     premium = models.ForeignKey(Premium, on_delete=models.CASCADE)
     sold = models.BooleanField(default=False)
-
     slug = models.SlugField(max_length=100,blank=True)
 
     def __str__(self):

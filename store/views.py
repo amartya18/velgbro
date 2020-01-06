@@ -2,9 +2,9 @@ import json
 import stripe
 from django.views.decorators.csrf import csrf_exempt
 
-from django.shortcuts import render, HttpResponse, Http404, redirect
+from django.shortcuts import render, HttpResponse, Http404, redirect, reverse
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
-from .models import Post, WheelImage
+from .models import Post, WheelImage, Premium
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,6 +13,7 @@ from products.models import Wheel, RingSize, Width, BoltPattern, Brand, Model
 from django.utils import timezone
 from django.db.models import Q
 from django.forms.models import modelformset_factory
+from urllib.parse import urlencode
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
@@ -51,45 +52,53 @@ class SearchResultView(ListView): # search result
 
 # temp
 def charge_view(request):
-    if request.method == 'POST':
-        charge = stripe.Charge.create(
-            amount= 500,
-            currency='usd',
-            description='A Django charge',
-            source=request.POST['stripeToken']
+    if request.method == 'GET' and 'stripe_redirect' in request.session:
+        post_slug = request.GET.get('post_slug')
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'name': 'Velgbro Premium',
+                'description': 'Premium Velgbro Post',
+                'amount': '7000000',
+                'currency': 'idr',
+                'quantity': 1,
+            }],
+            success_url='http://localhost:8000/{}'.format(post_slug),
+            cancel_url='http://localhost:8000/cancel',
+            client_reference_id = post_slug,
         )
-        context = {'object' : request.session.get('post_object')}
-        # return render(request, 'store/charge.html', context)
-        redirect('home')
-    else:
-        render(request, 'store/charge.html')
+        return render(request, 'store/charge.html', {'sessionId': session['id']})
+    elif request.method == 'POST':
+        raise Http404
 
 @csrf_exempt
 def my_webhook_view(request):
-    payload = request.body
-    event = None
+  payload = request.body
+  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+  event = None
 
+  try:
+    event = stripe.Event.construct_from(
+        json.loads(payload), stripe.api_key
+    )
 
-    try:
-        event = stripe.Event.construct_from(
-            json.loads(payload), stripe.api_key
-        )
-    except ValueError as e:
-        return HttpResponse(status=404)
+  except ValueError as e:
+    # Invalid payload
+    return HttpResponse(status=400)
+  except stripe.error.SignatureVerificationError as e:
+    # Invalid signature
+    return HttpResponse(status=400)
 
-    print(event.type)
+  # Handle the checkout.session.completed event
+  if event['type'] == 'checkout.session.completed':
+    session = event['data']['object']
 
-    if event.type == 'charge.succeeded':
-        payment_intent = event.data.object # contains stripe payment Intent
-        print(payment_intent)
-    # elif event.type == 'payment_method.attached':
-    #     payment_method = event.data.object # contains stripe payment Intent
-    #     handle_payment_method_attached(payment_method)
-    #     print(payment_method)
-    else:
-        return HttpResponse(status=400)
+    # Fulfill the purchase...
+    post = Post.objects.filter(slug=session['client_reference_id']).first()
+    post.premium = Premium.objects.all()[1]
+    post.save()
 
-    return HttpResponse(status=200)
+  return HttpResponse(status=200)
 
 # temp
 class PostDetailView(DetailView):
@@ -116,6 +125,7 @@ def create_post_view(request):
             post = post_form.save(False)
             post.user = request.user
             post.datetime = timezone.now()
+            post.premium = Premium.objects.all()[0]
             product = product_form.save(False)
             product.post = post
             post.save()
@@ -127,23 +137,24 @@ def create_post_view(request):
                     photo = WheelImage(post=post, image=form['image'])
                     photo.save()
                 except Exception as e:
-                    print("Error")
+                    print("Picture Error")
                     break
-            
-            print(request.POST)
 
-            # belom selesai
             if request.POST['premium'] == '2':
-                print("premium")
-                request.session['post_premium'] = True
+                print("PREMIUM")
+                request.session['stripe_redirect'] = True
                 # redirect to stripe payment then success page
+                base_url = reverse('post-charge')
+                query_string = urlencode({'post_slug': post.slug})
+                url = '{}?{}'.format(base_url, query_string)
+                return redirect(url)
 
             elif request.POST['premium'] == '1':
                 print("basic")
-                request.session['post_premium'] = False
                 # redirect to success page
+                return redirect('post-detail', slug=post.slug)
 
-            return redirect('post-detail', slug=post.slug)
+            return Http404
     else:
         post_form = PostForm(instance=Post())
         product_form = ProductForm(instance=Wheel())

@@ -1,0 +1,59 @@
+{% extends "store/base.html" %}
+{% include "navbar.html" %}
+{% block content %}
+
+<div class="row  pt-5 mt-5">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-8">
+    <div class="row pt-5">
+      <div class="col-md-4">
+        <div class="profile-pic">
+          <img src="img/character.jpg" alt="">
+        </div>
+      </div> 
+        <div class="col-md-8 pt-3">
+          <h4>MarcAntonio Purnama</h4>
+          <h5><small>marcantoniosmap@gmail.com</small></h5>
+          <h5><small>087883880470</small></h5>
+        </div>  
+    </div>
+    <div class="mt-3">
+      <h3>Update Profile</h3>
+      <hr>
+      <form class="text-left" action="#!">
+
+        <!-- Username -->
+        <label for="defaultLoginFormEmail">Username</label>
+        <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="{{user.username}}">
+
+         <!-- Email -->
+         <label for="defaultLoginFormEmail">Email</label>
+         <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="{{user.email}}">
+
+        <!-- Phone number -->
+        <label for="defaultLoginFormEmail">Phone Number</label>
+        <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="{{user.email}}">
+
+        <!--Picture-->
+        <label for="defaultLoginFormEmail">Display picture</label>
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile02">
+            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+          </div>
+          <div class="input-group-append">
+            <span class="input-group-text" id="">Upload</span>
+          </div>
+        </div>
+        <label for=""><small>Currently: {{user.profilepicurl}}</small></label>
+        <div>
+          <button class="btn btn-primary m-0">Update</button>
+        </div>
+            
+  </div>
+    </div>
+  <div class="col-lg-2"></div>
+</div>
+
+
+  {% endblock content %}

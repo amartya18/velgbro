@@ -1,8 +1,5 @@
 {% extends "store/base.html" %}
-{% include "navbar.html" %}
 {% block content %}
-
-
 
   <div class="profile pt-5 mt-5 ">
     <h1 class="text-center">Profile</h1>
@@ -24,6 +21,8 @@
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star"></span>
+          <p><a href="{% url 'logout' %}">Update profile</a></p>
+
           <p><a href="{% url 'logout' %}">logout</a></p>
         </div>
       </div>

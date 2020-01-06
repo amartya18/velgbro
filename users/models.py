@@ -26,8 +26,8 @@ class Profile(models.Model):
             img.save(self.profile_picture.path)
 
 class Wishlist(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    wheel = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    wheel = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 @receiver(post_save, sender=User)
 def update_profile_signal(sender, instance, created, **kwargs):

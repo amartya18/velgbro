@@ -1,13 +1,22 @@
 <!-- article_detail.html -->
 <div>
-  <h2>{{ object }}</h2>
-  <p>{{ object.premium }}</p>
-  <p>{{ object.user }}</p>
-  <p>{{ object.datetime }}</p>
+  <h2>{{ post }}</h2>
+  <p>{{ post.premium }}</p>
+  <p>{{ post.user }}</p>
+  <p>{{ post.datetime }}</p>
 
-  <a href=""></a>
+  <p>{{ current_user }}</p>
 
-  {% for image in object.wheelimage_set.all %}
+  <!-- if already in wishlist ilangin button or link nya -->
+  {% for w_item in current_wishlist %}
+  {% if post in w_item.post %}
+  {% if post.user in w_item.user %}
+  <p>Already in wishlist</p>
+  {% endif %}
+  <a href="{% url 'add-wishlist' post.slug %}">Wishlist</a>
+  {% endfor %}
+
+  {% for image in post.wheelimage_set.all %}
   <img src="{{ image.image.url }}" alt="wheel">
   {% endfor %}
 

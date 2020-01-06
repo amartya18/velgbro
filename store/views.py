@@ -14,6 +14,8 @@ from django.utils import timezone
 from django.db.models import Q
 from django.forms.models import modelformset_factory
 from urllib.parse import urlencode
+from store.models import Post
+from users.models import Wishlist
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
@@ -103,12 +105,13 @@ def my_webhook_view(request):
 # temp
 class PostDetailView(DetailView):
     model = Post
+    context_object_name = 'post'
     template_name = 'store/detail.html'
 
     def get_context_data(self, **kwargs): # stripe
         context = super().get_context_data(**kwargs)
-        context['key'] = settings.STRIPE_PUBLISHABLE_KEY
-        context['price_stripe'] = 500
+        current_wishlist = Wishlist.objects.filter(user=self.user,)
+        context['current_wishlist'] = current_wishlist.filter(wheel=self.object) 
         return context
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -171,3 +174,15 @@ def create_post_view(request):
         context['image_form'] = image_form
 
         return render(request, "store/post_create.html", context)
+
+def add_wishlist_view(request, slug):
+    post = Post.objects.filter(slug=slug).first()
+    new_wishlist = Wishlist(user=request.user, wheel=post)
+    new_wishlist.save()
+    return redirect('post-detail', slug=slug)
+
+class WishlistView(ListView):
+    model = Post
+    template_name = 'store/wishlist.html'
+    context_object_name = 'wishlist'
+    ordering = ['-datetime'] 

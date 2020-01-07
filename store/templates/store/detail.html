@@ -286,8 +286,17 @@ font-size: 16px;
       <span>Material:</span>
       <span class="float-right">{{object.wheel.material}}</span>
     </div>
-    <button class="btn btn-primary m-0 mt-5">ADD TO WISHLIST</button>
 
+        <!-- if already in wishlist ilangin button or link nya -->
+    <div class="pt-3">
+    {% if object.user != current_user %}
+      {% if current_wishlist %}
+      <button class="btn btn-primary" disabled>Added to Wishlist</button>
+      {% else %}
+        <a href="{% url 'add-wishlist' post.slug %}" class="btn btn-primary">Wishlist</a>
+      {% endif %}
+    {% endif %}
+  </div>
     
       
   </div>
@@ -301,16 +310,7 @@ font-size: 16px;
   </div>
 
   
-  <!-- if already in wishlist ilangin button or link nya -->
-  {% if object.user != current_user %}
-  {% if current_wishlist %}
-  <p>Already in wishlist</p>
-  {% else %}
-  <a href="{% url 'add-wishlist' post.slug %}">Wishlist</a>
-  {% endif %}
-  {% endif %}
 
-  <p>HELLO WORLD</p>
     
   </div>
   <div class="box box5">

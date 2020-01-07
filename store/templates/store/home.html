@@ -201,13 +201,13 @@
         <div class="col-lg-3 col-md-6 mb-4">
 
           <!--Card-->
-          <div class="card card-small hot_card">
+         <div class="card card-small hot_card">
 
             <!--Card image-->
             <div class="view overlay">
               <img src="{{ c_post.wheelimage_set.all.first.image.url }}" class="card-img-top"
                 alt="">
-              <a>
+              <a href="{{ c_post.get_absolute_url }}">
                 <div class="mask rgba-white-slight"></div>
                 <div class=wheel-tag>HOT</div>
               </a>
@@ -217,10 +217,8 @@
             <!--Card content-->
             <div class="card-body text-center">
               <!--Category & Title-->
-              <a href="" class="grey-text">
                 <h5>{{ c_post.wheel.condition }}</h5>
-              </a>
-              <div class=" wheel-title text-center">{{ c_post }}</div>
+              <a href="{{ c_post.get_absolute_url }}"><div class=" wheel-title text-center">{{ c_post }}</div></a>
 
               <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp {{ c_post.wheel.price}}</div>
 
@@ -241,10 +239,6 @@
 
       </section>
       <!--FInish Card Section-->
-
-
-        
-
 
         <div class="container">
           <!-- CARD PRODUCTS-->

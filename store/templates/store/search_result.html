@@ -6,10 +6,15 @@
   <form action="{% url 'search-results' %}" method="GET">
     <div class="search-bar row text-center p-4 mt-4">
       <div class="col-md-2 col-sm-12 search">
-        <select class="search-select" name="ringsize">
-          <option value="">Ring Size</option>
+        <select class="search-select" name="ringsize" active="hai">
+          <option value="">Ring size</option>
           {% for item in ringsize %}
-          <option value="{{ item }}">{{ item }}</option>
+            {% if current == item %}
+            <option selected="selected" value="{{ item }}">{{ item }}</option>
+            {% else %}
+            <option value="{{ item }}">{{ item }}</option>
+
+            {% endif %}
           {% endfor %}
       </select>
     </div>
@@ -30,15 +35,36 @@
         </select>
       </div>
       <div class="col-md-2 col-sm-12 search">
-        <select class="search-select" name="brand"> 
+        <select class="search-select" name="brand" id="brand_search"> 
           <option value="">Wheel Brand</option>
           {% for item in brand %}
           <option value="{{ item }}">{{ item }}</option>
           {% endfor %}
         </select>
       </div>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <script>
+        var enable_model = function () {
+          if ($("#brand-search").is(":checked")) {
+            console.log("hello")
+              $('#model-search').prop('disabled',false);
+          }
+          else {
+              $('#model-search').prop('disabled', 'disabled');
+          }
+        };
+        $(enable_model);
+        $("#brand-search").change(enable_model);
+
+        // var update_pizza = function () {
+        //   $("#model-search").prop("disabled", !$('#brand-search').prop('selected'));
+        // };
+
+        // update_pizza();
+        // $("#pizza").change(update_pizza);
+      </script>
       <div class="col-md-2 search">
-        <select class="search-select" name="model"> 
+        <select class="search-select" name="model" id="model-search"> 
           <option value="">Wheel Model</option>
           {% for item in model %}
           <option value="{{ item }}">{{ item }}</option>
@@ -50,9 +76,9 @@
       </div>
       </div>
     </form>
-  <h1 class="text-center">Search Result</h1>
-    {% for post in posts %}
+  <h1 class="text-center  mt-5">Search Result</h1>
 
+    {% for post in posts %}
     <!-- CARD PRODUCTS-->
     
     {% if post.premium.name == 'basic' %}

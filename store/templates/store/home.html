@@ -201,7 +201,7 @@
         <div class="col-lg-3 col-md-6 mb-4">
 
           <!--Card-->
-         <div class="card card-small {% if c_post.premium %} hot_card {%endif%}">
+         <div class="card card-small {% if c_post.premium. %} hot_card {%endif%}">
             <!--Card image-->
             <div class="view overlay">
               <img src="{{ c_post.wheelimage_set.all.first.image.url }}" class="card-img-top"
@@ -224,7 +224,9 @@
 
             </div>
             <!--Card content-->
-
+            {% if c_post.sold %}
+            <div class="mask-sold"><i class="fas fa-money-bill-wave-alt"></i> SOLD</div>
+            {% endif%}
           </div>
           <!--Card-->
 
@@ -239,101 +241,7 @@
       </section>
       <!--FInish Card Section-->
 
-        <div class="container">
-          <!-- CARD PRODUCTS-->
-          <div class="card mb-3">
-              <div class="row no gutters py-3">
-                <div class=" col-md-4 text-center">
-                  <img  class = "wheel-img" src="img/wheel/wheelsale (2).png" alt="">
-                </div>
-                <div class="col-md-4 p pl-0">
-                  <div class=" wheel-title text-left">2017 Enkei RPF1 1.0 harga terbaik</div>
-                  <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">Velg kesayangan
-                    orang tua banget nih pokoknya content sangat panjang alhamdulila
-                  </span>
-                  <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 12.000.000</div>
-                  
-                  <button type="button " class=" m-0 mt-1 btn btn-primary btn-sm mt-4 mb-1">Add to wishlist</button>
-                  <div><small>seen by 53 others</small></div>
-                </div>
-                  <div class="col-md-4">
-                    <div class="text-center desc_panel">Regular</div>
-                    
-                    <div class="box text-left p-2 mr-3 mt-3">
-                      <div class="item-info"> <i class="fas fa-dharmachakra"></i> : 5x120</div>
-                      <div class="item-info"><i class="fas fa-ring"></i> : 17"</div>
-                      <div class="item-info"><i class="fas fa-car-alt"></i> : 8.5 , 9.5</div>
-                      <div class="item-info"><i class="fas fa-arrows-alt-h"></i> : +35, +37</div>
-                    </div>
-                    <div style="text-align: center;">
-                    <button type="button " class="mt-3 btn btn-outline-info btn-sm mx-2">Contact</button>
-                    <button type="button " class="mt-3 btn btn-outline-success btn-sm mx-2">Whatsapp</button>
-                  </div>
-                  </div>
-              </div>
-           </div>
-           <!-- CARD PRODUCTS-->
-
-           <!-- CARD PRODUCTS-->
-          <div class="card hot_card mb-3">
-            <div class="row no gutters py-3">
-              <div class=" col-md-4 text-center">
-                <img  class = "wheel-img" src="img/wheel/wheelsale (3).png" alt="">
-                <div class=wheel-tag>HOT</div>
-              </div>
-              <div class="col-md-4 p pl-0">
-                <div class=" wheel-title text-left">2nd Rep. ZE40</div>
-                <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">Velg kesayangan
-                  Kondisi no repair no repaint
-                  Super copy like original                </span>
-                <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 27.860.000</div>
-                
-                <button type="button " class=" m-0 mt-1 btn btn-primary btn-sm mt-4 mb-1">Add to wishlist</button>
-                <div><small>seen by 53 others</small></div>
-              </div>
-                <div class="col-md-4">
-                  <div class="text-center desc_panel hot">Description</div>
-                  
-                  <div class="box text-left p-2 mr-3 mt-3">
-                    <div class="item-info"> <i class="fas fa-dharmachakra"></i> : 5x120</div>
-                    <div class="item-info"><i class="fas fa-ring"></i> : 17"</div>
-                    <div class="item-info"><i class="fas fa-car-alt"></i> : 8.5 , 9.5</div>
-                    <div class="item-info"><i class="fas fa-arrows-alt-h"></i> : +35, +37</div>
-                  </div>
-                  <div style="text-align: center;">
-                  <button type="button " class="mt-3 btn btn-outline-info btn-sm mx-2">Contact</button>
-                  <button type="button " class="mt-3 btn btn-outline-success btn-sm mx-2">Whatsapp</button>
-                </div>
-                </div>
-            </div>
-         </div>
-         
-         <!-- CARD PRODUCTS-->
-
-         <!-- CARD PRODUCTS-->
-         <div class="card mb-3">
-          <div class="row no gutters py-3">
-            <div class=" col-md-2 pl-5 pr-0 text-center">
-              <div class="comment-pic">
-                <img src="img/character.jpg" alt="">
-              </div>
-            </div>
-            <div class="col-md-10 p pl-0  ">
-              <div class=" wheel-title text-left">MarcAntonio Smap</div>
-              <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">
-                ini isi komen saya ini sangat keeren sih menurut kuy
-                 hhhahahha belini isi komen saya ini sangat keeren sih 
-                 menurut kuy hhhahahha belini isi komen saya ini sangat</span> 
-                <div><small>50 minutes ago</small></div>
-            </div>
-              
-          </div>
-       </div>
-
-        </div>
-
-      </section>
-      <!--Section: Products v.3-->
+       
 
       <!--Pagination-->
       <nav class="d-flex justify-content-center wow fadeIn">

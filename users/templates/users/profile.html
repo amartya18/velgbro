@@ -79,7 +79,9 @@
 
           </div>
           <!--Card content-->
-
+          {% if c_post.sold %}
+          <div class="mask-sold"><i class="fas fa-money-bill-wave-alt"></i> SOLD</div>
+          {% endif%}
         </div>
         <!--Card-->
 

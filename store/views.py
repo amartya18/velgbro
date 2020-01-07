@@ -235,3 +235,8 @@ class WishlistView(ListView):
 
     def get_queryset(self):
         return Wishlist.objects.filter(user=self.request.user)
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nbar'] = 'wishlist'
+        return context

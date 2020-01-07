@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from store.models import Post
+from .models import Wishlist
 from .forms import SignUpForm, ProfileUpdateForm, UserUpdateForm
 
 # Create your views here.
@@ -40,10 +41,11 @@ class ProfileView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Post.objects.filter(user=self.request.user)
 
-@login_required
-def profile_view(request):
-    # pagination=10
-    return render(request, 'users/profile.html',{'nbar':'profile'})
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nbar'] = 'profile'
+        return context
+
 
 def update_view(request):
     if request.method =='POST':
@@ -81,3 +83,17 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
         return render(request, 'users/change_password.html', {'form': form})
+
+class WishlistView(ListView):
+    model = Wishlist
+    template_name = 'users/wishlist.html'
+    context_object_name = 'wishlist'
+    ordering = ['-datetime'] 
+
+    def get_queryset(self):
+        return Wishlist.objects.filter(user=self.request.user)
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nbar'] = 'wishlist'
+        return context

@@ -145,3 +145,29 @@ input{
   background: white;
   width:100%;
 }
+.comment-pic{
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.comment-pic>img{
+  object-fit: scale-down;
+  width: 80px;
+}
+.mask-sold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-attachment: fixed;
+  background-color: rgba(37, 37, 37, 0.3);
+  color:white;
+  font-size: 3rem;
+  text-align: center;
+  padding-top: 50%;
+}

@@ -1,0 +1,68 @@
+{% extends "store/base.html" %}
+{% include "navbar.html" %}
+{% block content %}
+
+
+
+  <div class="profile pt-5 mt-5 ">
+  
+  <h2 class="text-center">{{user.first_name}}'s wishlist</h2>
+  <h5  class="text-center"><small>ordered by</small>
+    <select  class="form-control form-control-sm ml-1" style="display: inline; width:auto">
+    <option value="latest">Latest</option>
+    <option value="sold">Sold</option>
+    <option value="viewed">Viewed</option>
+  </select></h5>
+  <div class="container">
+  <!--Section: Products v.3-->
+  <section class="text-left mb-4">
+  
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      {% for c_post in wishlist %}
+      <div class="col-lg-3 col-md-6 mb-4">
+
+        <!--Card-->
+       <div class="card card-small hot_card">
+
+          <!--Card image-->
+          <div class="view overlay">
+            <img src="{{ c_post.wheel.wheelimage_set.all.first.image.url }}" class="card-img-top"
+              alt="">
+            <a href="{{ c_post.wheel.get_absolute_url }}">
+              <div class="mask rgba-white-slight"></div>
+              <div class=wheel-tag>HOT</div>
+            </a>
+          </div>
+          <!--Card image-->
+
+          <!--Card content-->
+          <div class="card-body text-center">
+            <!--Category & Title-->
+              <h5>{{ c_post.wheel.wheel.condition }}</h5>
+            <a href="{{ c_post.wheel.get_absolute_url }}"><div class=" wheel-title text-center">{{ c_post.wheel }}</div></a>
+
+            <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp {{ c_post.wheel.wheel.price}}</div>
+
+
+          </div>
+          <!--Card content-->
+         {% if c_post.sold %}
+         <div class="mask-sold"><i class="fas fa-money-bill-wave-alt"></i> SOLD</div>
+         {% endif%}
+       </div>
+       <!--Card-->
+
+      </div>
+      <!--Grid column-->
+      {% endfor %}
+    </div>
+    <!--Grid Row-->
+      
+    </section>
+    </div>
+</div>
+
+  {% endblock content %}
+

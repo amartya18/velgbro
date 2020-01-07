@@ -58,6 +58,7 @@ class SearchResultView(ListView): # search result
         context['current']=self.request.GET['ringsize']
         print(str(context['current']))
         # print(type(context['current']))
+
         return context
 
     def get_queryset(self):
@@ -70,7 +71,7 @@ class SearchResultView(ListView): # search result
         posts = Post.objects.filter(
             # Q(wheel__name__icontains=name) 
             Q(wheel__ring_size__ring_size__icontains=ring_size) & Q(wheel__width__width__icontains=width) & Q(wheel__bolt_pattern__bolt_pattern__icontains=bolt_pattern) & Q(wheel__model__brand__brand__icontains=brand) & Q(wheel__model__model__icontains=model)
-        )   
+        )
         return posts
 
 
@@ -200,7 +201,6 @@ def create_post_view(request):
             post.save()
             product.save()
 
-
             for form in image_form.cleaned_data:
                 try:
                     photo = WheelImage(post=post, image=form['image'])
@@ -274,6 +274,7 @@ class WishlistView(ListView):
     def get_queryset(self):
         return Wishlist.objects.filter(user=self.request.user)
 
+<<<<<<< HEAD
 def add_comment_to_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
     if request.method == "POST":
@@ -286,3 +287,9 @@ def add_comment_to_post(request, slug):
     else:
         form = CommentForm()
     return render(request, 'blog/detail.html', {'form': form})
+=======
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nbar'] = 'wishlist'
+        return context
+>>>>>>> 74f4ba2081a943a537e849021e9dcc6bb113179c

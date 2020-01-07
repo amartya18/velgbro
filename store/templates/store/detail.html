@@ -152,8 +152,17 @@ font-size: 16px;
   <!-- Image Slider -->
   <div class="container">
     <main>
-      <div class="pt-5"></div>
-      <div class="pt-5"></div>
+      <div class="pt-5 mt-5"></div>
+      {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+     {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
   
         <div class = "wrapper" >
           <div class="box box1">
@@ -162,8 +171,9 @@ font-size: 16px;
           <p>Updated on:{{object.datetime}}</p>
           <h4><strong>Rp.{{object.wheel.price}}</strong></h4>
           
-
         </div>
+        
+        
   
       <div>
       <div id="slider">
@@ -226,16 +236,7 @@ font-size: 16px;
     </div>
   <!-- image slider -->
   <div >
-    {% for message in messages %}
-    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-     {{message}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-    {% endif %}
-{% endfor %}
+    
   <div><h2>Specification</h2></div>
     <hr>
     <div>
@@ -288,15 +289,7 @@ font-size: 16px;
     </div>
 
         <!-- if already in wishlist ilangin button or link nya -->
-    <div class="pt-3">
-    {% if object.user != current_user %}
-      {% if current_wishlist %}
-      <button class="btn btn-primary" disabled>Added to Wishlist</button>
-      {% else %}
-        <a href="{% url 'add-wishlist' post.slug %}" class="btn btn-primary">Wishlist</a>
-      {% endif %}
-    {% endif %}
-  </div>
+    <div></div>
     
       
   </div>
@@ -308,11 +301,20 @@ font-size: 16px;
     </p>
    
   </div>
+  <div class="row text-center" style="max-height: 4rem;">
+    {%if object.user == current_user %}
+      <div class="col-sm-6 pl-0 ml-0" style="max-height: 3rem;"><a class="btn btn-primary btn-sm" href="{% url 'post-update' object.slug %}">update</a></div>
+      <div class="col-sm-6"  style="max-height: 3rem;"><a class ="btn btn-danger btn-sm"href="{% url 'post-delete' object.slug %}">delete</a></div>
+    {% else %}
+      {% if current_wishlist %}
+        <button class="btn btn-primary" disabled>Added to Wishlist</button>
+      {% else %}
+        <a href="{% url 'add-wishlist' post.slug %}" class="btn btn-primary">Add to Wishlist</a>
+      {% endif %}
+    {% endif %}
 
-  
-
-    
   </div>
+<<<<<<< HEAD
   <div class="box box5">
     <div><h2><b>KOMENTAR</b></h2></div><hr>
     <hr>
@@ -340,10 +342,59 @@ font-size: 16px;
     <textarea name="" cols="50" rows="10" placeholder="please enter your comment here."> </textarea>
         <p><a href="{% url 'post-update' object.slug %}">update</a></p>
         <p><a href="{% url 'post-delete' object.slug %}">delete</a></p>
+=======
+  <div ></div>
+  <div>
+    <h4>About Seller</h4>
+    <hr>
+    <div class="row">
+      <div class="col-lg-2">
+        <div class="profile-pic">
+          <img src="{{ user.profile.profile_picture.url }}"alt="">
+        </div>
+      </div> 
+      <div class="col-lg-9 mt-4 ml-4">
+        <h5>@{{ object.user.username }}</h5>
+        <p>email :<b>{{object.user.email}}</b></p>
+        <p>Phone Number :<b>{{object.user.profile.phone_number}}</b></p>
+
+      </div>
+>>>>>>> 74f4ba2081a943a537e849021e9dcc6bb113179c
     </div>
-    <div>
-      <a href="#"><button class="button">Enter</button></a>
+  </div>
+  <!--WRAPPER-->
+  </div>
+  
+  <div class="pt-3">
+    <h3 class="text-center text-primary">Comments</h3>
+    <hr>
+    <!--for loop here-->
+    <div class="card mb-3">
+      <div class="row no gutters py-3">
+        <div class=" col-md-2 pl-5 pr-0 text-center">
+          <div class="comment-pic">
+            <img src="{{ user.profile.profile_picture.url }}" alt="">
+          </div>
+        </div>
+        <div class="col-md-10 p pl-0  ">
+          <div class=" wheel-title text-left">MarcAntonio Smap</div>
+          <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">
+            ini isi komen saya ini sangat keeren sih menurut kuy
+             hhhahahha belini isi komen saya ini sangat keeren sih 
+             menurut kuy hhhahahha belini isi komen saya ini sangat</span> 
+            <div><small>50 minutes ago</small></div>
+        </div>
+          
+      </div>
+   </div>
+   <form action="">
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Insert your comment</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="This looks killer!"></textarea>
+      <div class="btn-primary btn mt-3 ml-0">Submit</div>
     </div>
+   </form>
+
   </div>
   
     </main>

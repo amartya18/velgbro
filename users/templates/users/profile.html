@@ -26,16 +26,10 @@
 
         </div> 
         <div class="col-lg-9 mt-1">
-          <h4>@{{ user.username }}</h4>
+          <h4 class="text-success ">@{{ user.username }}</h4>
           <h5>Post Count: <b>1</b></h5>
           <h5>Sold :<b>1</b></h5>
-          
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star"></span>
-          <p><a href="{% url 'logout' %}">logout</a></p>
+          <p><a class="btn btn-danger m-0" href="{% url 'logout' %}">logout</a></p>
           <p><a href="{% url 'change' %}">change password</a></p>
 
         </div>
@@ -45,7 +39,7 @@
   <hr>
   <h2 class="text-center">{{user.first_name}}'s Wheel</h2>
   <h5  class="text-center"><small>ordered by</small>
-    <select  class="form-control form-control-sm ml-1" style="display: inline; width: auto;">
+    <select  class="form-control form-control-sm ml-1" style="display: inline; width:auto">
     <option value="latest">Latest</option>
     <option value="sold">Sold</option>
     <option value="viewed">Viewed</option>
@@ -56,6 +50,7 @@
   
     <!--Grid row-->
     <div class="row wow fadeIn">
+
       {% for c_post in posts %}
       <div class="col-lg-3 col-md-6 mb-4">
 
@@ -84,16 +79,18 @@
 
           </div>
           <!--Card content-->
-
+          {% if c_post.sold %}
+          <div class="mask-sold"><i class="fas fa-money-bill-wave-alt"></i> SOLD</div>
+          {% endif%}
         </div>
         <!--Card-->
 
       </div>
       <!--Grid column-->
-
+      {% endfor %}
     </div>
     <!--Grid Row-->
-      {% endfor %}
+      
     </section>
   
   </div>

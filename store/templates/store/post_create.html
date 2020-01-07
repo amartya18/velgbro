@@ -1,19 +1,6 @@
 {% extends "store/base.html" %}
 {% load static %}
 {% block content %}
-<!-- <div class="pt-5 mt-5"></div>
-<div class="row">
-    <div class="col-md-6">
-        <form method="POST" enctype="multipart/form-data" action="{% url 'create-post' %}">
-            {% csrf_token %}
-            {{ post_form }}
-            {{ product_form }}
-            {{ image_form }}
-            <button type="submit">create post</button>
-        </form>
-    </div>
-</div> -->
-
 
 <div class="pt-5 mt-5"></div>
 <div class="container">
@@ -24,10 +11,9 @@
   <table class="table table-borderless pl-0">
 
     <div class="input-group mb-3">
-      <div class="custom-file">
         {{ image_form }}
          <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-      </div>
+    
     </div>
     <tr>
         <!--Premium-->
@@ -53,8 +39,8 @@
       </tr>
     <tr>
       <!--Description BELOm-->
-      <td>Description</td>
-      <!-- <td> <textarea name="description" id="desc" class="input-xlarge" placeholder="insert description here"></textarea></td> --> -->
+      <td>{{product_form.description.label}}</td>
+      <td> {{product_form.description}}</td>
     </tr>
     <tr>
       <!--MODEL-->

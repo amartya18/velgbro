@@ -1,6 +1,7 @@
 from django.db import models
 from store.models import Post
 from django.core.validators import MaxLengthValidator, MaxValueValidator, MinValueValidator
+from products.validators import my_blank_validator
 
 class RingSize(models.Model):
     ring_size = models.IntegerField()
@@ -53,12 +54,13 @@ class Wheel(models.Model): # everything should be CASCADE
     width = models.ForeignKey(Width, on_delete=models.CASCADE)
     bolt_pattern = models.ForeignKey(BoltPattern, on_delete=models.CASCADE)
 
-    offset = models.IntegerField(blank=True, validators=[MaxValueValidator(50), MinValueValidator(-50)])
+    # validators=[MaxValueValidator(50), MinValueValidator(-50)]
+    offset = models.IntegerField(default=None, blank=True)
     color = models.ForeignKey(Color, null=True, on_delete=models.SET_NULL)
     condition = models.BooleanField()
     material = models.ForeignKey(Material, null=True, on_delete=models.SET_NULL)
     price = models.IntegerField()
-    description = models.TextField(validators=[MaxLengthValidator(255)])
+    description = models.TextField(validators=[MaxLengthValidator(2500)])
 
 
     def __str__(self):

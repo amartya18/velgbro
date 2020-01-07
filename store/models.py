@@ -56,9 +56,21 @@ class WheelImage(models.Model):
     def save(self, *args, **kwargs):
         super(WheelImage, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
+        # img = Image.open(self.image.path)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
+        # if img.height > 300 or img.width > 300:
+        #     output_size = (300, 300)
+        #     img.thumbnail(output_size)
+        #     img.save(self.image.path)
+
+        #     		super().save(*args, **kwargs)
+        
+		#https://stackoverflow.com/questions/5213025/how-to-check-imagefield-is-empty
+        if self.image:
+            img = Image.open(self.image.path)
+
+            basewidth = 500
+            wpercent = (basewidth / float(img.size[0]))
+            hsize = int((float(img.size[1]) * float(wpercent)))
+            img = img.resize((basewidth, hsize), Image.ANTIALIAS)
             img.save(self.image.path)

@@ -28,6 +28,7 @@ class HomePageView(ListView):
     template_name = 'store/home.html'
     model = Post
     context_object_name = 'posts'
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

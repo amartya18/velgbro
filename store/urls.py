@@ -6,7 +6,7 @@ from store.views import HomePageView, SearchResultView, PostDetailView
 urlpatterns = [
     # path('', store_view.post_list_view, name='post-list'),
     path('post/', store_view.create_post_view, name='create-post'),
-    path('search/', store_view.SearchResultView.as_view(), name='search-results'),
+    path('search/', store_view.SearchResultView.as_view(paginate_by=2), name='search-results'),
     path('', store_view.HomePageView.as_view(), name='home'),
     path('detail/<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
     path('update/<slug:slug>', store_view.post_update_view, name='post-update'),

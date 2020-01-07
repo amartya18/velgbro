@@ -119,6 +119,7 @@ def my_webhook_view(request):
     session = event['data']['object']
 
     # Fulfill the purchase...
+    print("STRIPE PAYING")
     post = Post.objects.filter(slug=session['client_reference_id']).first()
     post.premium = Premium.objects.filter(name='premium').first()
     post.save()

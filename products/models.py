@@ -49,17 +49,25 @@ class Material(models.Model):
 class Wheel(models.Model): # everything should be CASCADE
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
     post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='wheel')
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, blank=True)
     ring_size = models.ForeignKey(RingSize, on_delete=models.CASCADE)
     width = models.ForeignKey(Width, on_delete=models.CASCADE)
     bolt_pattern = models.ForeignKey(BoltPattern, on_delete=models.CASCADE)
 
     # validators=[MaxValueValidator(50), MinValueValidator(-50)]
-    offset = models.IntegerField(default=None, blank=True)
-    color = models.ForeignKey(Color, null=True, on_delete=models.SET_NULL)
-    condition = models.BooleanField()
-    material = models.ForeignKey(Material, null=True, on_delete=models.SET_NULL)
-    price = models.IntegerField()
+    offset = models.IntegerField(default=None, null=True, blank=True)
+    color = models.ForeignKey(Color, null=True, blank=True, on_delete=models.SET_NULL)
+    condition_choices = [
+        ('NEW','New'),
+        ('USED','Used'),
+    ]
+    condition = models.CharField(
+        max_length=4,
+        choices=condition_choices,
+        # default='',
+    )
+    material = models.ForeignKey(Material, null=True, blank=True, on_delete=models.SET_NULL)
+    price = models.IntegerField(validators=[MinValueValidator(0)])
     description = models.TextField(validators=[MaxLengthValidator(2500)])
 
 

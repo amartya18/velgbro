@@ -152,8 +152,7 @@ def create_post_view(request):
                     print("Picture Error")
                     break
 
-            if request.POST['premium'] == '2':
-                print("PREMIUM")
+            if request.POST['premium'] == Premium.objects.filter(name='premium'):
                 request.session['stripe_redirect'] = True
                 # redirect to stripe payment then success page
                 base_url = reverse('post-charge')
@@ -161,7 +160,7 @@ def create_post_view(request):
                 url = '{}?{}'.format(base_url, query_string)
                 return redirect(url)
 
-            elif request.POST['premium'] == '1':
+            elif request.POST['premium'] == Premium.objects.filter(name='basic'):
                 print("basic")
                 # redirect to success page
                 return redirect('post-detail', slug=post.slug)

@@ -75,6 +75,7 @@ class SearchResultView(ListView): # search result
 # temp
 def charge_view(request):
     if request.method == 'GET' and 'stripe_redirect' in request.session:
+        print("STRIPE")
         post_slug = request.GET.get('post_slug')
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
@@ -86,7 +87,8 @@ def charge_view(request):
                 'quantity': 1,
             }],
             success_url='http://localhost:8000/detail/{}'.format(post_slug),
-            cancel_url=Http404,
+            cancel_url='http://localhost:8000/', #cancel payment
+            # cancel_url=Http404,
             client_reference_id = post_slug,
         )
         return render(request, 'store/charge.html', {'sessionId': session['id']})
@@ -117,7 +119,7 @@ def my_webhook_view(request):
 
     # Fulfill the purchase...
     post = Post.objects.filter(slug=session['client_reference_id']).first()
-    post.premium = Premium.objects.all()[1]
+    post.premium = Premium.objects.filter(name='premium').first()
     post.save()
 
   return HttpResponse(status=200)
@@ -149,7 +151,7 @@ def create_post_view(request):
             post = post_form.save(False)
             post.user = request.user
             post.datetime = timezone.now()
-            post.premium = Premium.objects.all()[0]
+            post.premium = Premium.objects.filter(name='basic').first()
             product = product_form.save(False)
             product.post = post
 
@@ -169,7 +171,8 @@ def create_post_view(request):
                     print("Picture Error")
                     break
 
-            if request.POST['premium'] == Premium.objects.filter(name='premium'):
+            if int(request.POST['premium']) == Premium.objects.filter(name='premium').first().pk:
+                print("PREMIUM")
                 request.session['stripe_redirect'] = True
                 # redirect to stripe payment then success page
                 base_url = reverse('post-charge')
@@ -177,12 +180,11 @@ def create_post_view(request):
                 url = '{}?{}'.format(base_url, query_string)
                 return redirect(url)
 
-            elif request.POST['premium'] == Premium.objects.filter(name='basic'):
-                print("basic")
+            elif int(request.POST['premium']) == Premium.objects.filter(name='basic').first().pk:
+                print("BASIC")
                 # redirect to success page
                 return redirect('post-detail', slug=post.slug)
 
-            return Http404
     else:
         post_form = PostForm(instance=Post())
         product_form = ProductForm(instance=Wheel())

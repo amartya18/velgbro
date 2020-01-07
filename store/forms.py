@@ -1,4 +1,5 @@
 from django.forms import ModelForm, ChoiceField
+from django import forms
 from store.models import Post, WheelImage, Comments
 from products.models import Wheel
 
@@ -28,6 +29,10 @@ class ImageForm(ModelForm):
         fields = ('image',)
 
 class CommentForm(ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Insert Comment here...','rows':5,'cols':100}))
+
     class Meta:
         model = Comments
         fields = ('content',)
+
+        

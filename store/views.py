@@ -46,7 +46,12 @@ class SearchResultView(ListView): # search result
     model = Post
     template_name = 'store/search_result.html'
     context_object_name = 'posts'
-    ordering = ['datetime'] # will use hit in the future
+    ordering = ['-datetime'] # will use hit in the future
+
+    # def get_ordering(self):
+    #     ordering = self.request.GET.get('ordering', 'premium.price')
+    #     ordering.order_by('datetime')
+    #     return ordering
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,8 +62,8 @@ class SearchResultView(ListView): # search result
         context['model'] = Model.objects.all()
         context['nbar']='search'
         context['current']=self.request.GET['ringsize']
-        print(str(context['current']))
-        # print(type(context['current']))
+        
+        context['sorted_posts']= Post.objects.filter(sold=False).order_by('premium.price').order_by('-datetime')
 
         return context
 
@@ -279,3 +284,10 @@ class WishlistView(ListView):
         context = super().get_context_data(**kwargs)
         context['nbar'] = 'wishlist'
         return context
+
+def post_sold(request, slug):
+    if request.method == 'GET':
+        post = get_object_or_404(Post, slug=slug)
+        post.sold = True
+        post.save()
+        return redirect('post-detail', slug=slug)

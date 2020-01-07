@@ -57,7 +57,7 @@
     </form>
   <h1 class="text-center  mt-5">Search Result</h1>
 
-    {% for post in posts %}
+    {% for post in sorted_posts %}
     <!-- CARD PRODUCTS-->
     
     {% if post.premium.name == 'basic' %}

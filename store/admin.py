@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, WheelImage, Premium
+from .models import Post, WheelImage, Premium, Comments
 from products.models import Wheel
 
 
@@ -29,3 +29,4 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(WheelImage)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Premium)
+admin.site.register(Comments)

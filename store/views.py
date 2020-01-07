@@ -2,7 +2,7 @@ import json
 import stripe
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from django.shortcuts import render, HttpResponse, Http404, redirect, reverse
+from django.shortcuts import Http404, HttpResponse, get_object_or_404, redirect, render, reverse
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from .models import Post, WheelImage, Premium
 from django.conf import settings
@@ -18,6 +18,8 @@ from users.models import Wishlist
 from store.models import Post
 from users.models import Wishlist
 from django.core.paginator import Paginator
+from store.forms import CommentForm
+from django.views.generic.edit import FormMixin
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
@@ -126,17 +128,52 @@ def my_webhook_view(request):
   return HttpResponse(status=200)
 
 # temp
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin, DetailView):
     model = Post
     context_object_name = 'post'
     template_name = 'store/detail.html'
+    form_class = CommentForm
+
+    # def get_success_url(self):
+    #     return reverse('post-detail', kwargs={'slug': self.object.slug })
 
     def get_context_data(self, **kwargs): # stripe
         context = super().get_context_data(**kwargs)
         current_wishlist = Wishlist.objects.filter(user=self.request.user)
         context['current_wishlist'] = current_wishlist.filter(wheel=self.object).first()
         context['current_user'] = self.request.user
+
+        context['form'] = CommentForm(initial={'post': self.object})
         return context
+
+    def post(self, request, *args, **kwargs):
+        print("POST")
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.user = self.request.user
+            comment.save()
+            return redirect('post-detail', self.object.slug)
+        else:
+            return Http404
+
+        # post = get_object_or_404(Post, slug=slug)
+        # if request.method == "POST":
+        #     form = CommentForm(request.POST)
+        #     if form.is_valid():
+        #         comment = form.save(commit=False)
+        #         comment.post = post
+        #         comment.save()
+        #         return redirect('post_detail', slug=post.slug)
+        # else:
+        #     form = CommentForm()
+        # return render(request, 'blog/detail.html', {'form': form})
+        
+    # def form_valid(self, form):
+    #     form.save()
+    #     return super(PostDetailView, self).form_valid(form)
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -236,3 +273,16 @@ class WishlistView(ListView):
 
     def get_queryset(self):
         return Wishlist.objects.filter(user=self.request.user)
+
+def add_comment_to_post(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', slug=post.slug)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/detail.html', {'form': form})

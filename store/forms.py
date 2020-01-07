@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ChoiceField
-from store.models import Post, WheelImage
+from store.models import Post, WheelImage, Comments
 from products.models import Wheel
 
 class PostForm(ModelForm):
@@ -26,3 +26,8 @@ class ImageForm(ModelForm):
     class Meta:
         model = WheelImage
         fields = ('image',)
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comments
+        fields = ('content',)

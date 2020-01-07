@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
+from django.core.validators import MaxLengthValidator, MaxValueValidator, MinValueValidator
 from django.urls import reverse
 from PIL import Image
 
@@ -74,3 +75,13 @@ class WheelImage(models.Model):
             hsize = int((float(img.size[1]) * float(wpercent)))
             img = img.resize((basewidth, hsize), Image.ANTIALIAS)
             img.save(self.image.path)
+
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    datetime = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(validators=[MaxLengthValidator(255)])
+
+    def __str__(self):
+        return self.content
+    

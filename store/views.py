@@ -17,12 +17,15 @@ from urllib.parse import urlencode
 from users.models import Wishlist
 from store.models import Post
 from users.models import Wishlist
+from django.core.paginator import Paginator
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
 # Create your views here.
-class HomePageView(TemplateView):
+class HomePageView(ListView):
     template_name = 'store/home.html'
+    model = Post
+    context_object_name = 'posts'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -32,6 +35,7 @@ class HomePageView(TemplateView):
         context['brand'] = Brand.objects.all()
         context['model'] = Model.objects.all()
         context['nbar']='home'
+        # context['hot_wheels'] = Paginator(Post.objects.all(), 8).page(1)
         return context
 
 class SearchResultView(ListView): # search result 
@@ -39,7 +43,20 @@ class SearchResultView(ListView): # search result
     model = Post
     template_name = 'store/search_result.html'
     context_object_name = 'posts'
-    ordering = ['wheel.price'] # will use hit in the future
+    ordering = ['datetime'] # will use hit in the future
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ringsize'] = RingSize.objects.all()
+        context['width'] = Width.objects.all()
+        context['boltpattern'] = BoltPattern.objects.all()
+        context['brand'] = Brand.objects.all()
+        context['model'] = Model.objects.all()
+        context['nbar']='search'
+        context['current']=self.request.GET['ringsize']
+        print(str(context['current']))
+        # print(type(context['current']))
+        return context
 
     def get_queryset(self):
         # name = self.request.GET.get('name')
@@ -51,7 +68,7 @@ class SearchResultView(ListView): # search result
         posts = Post.objects.filter(
             # Q(wheel__name__icontains=name) 
             Q(wheel__ring_size__ring_size__icontains=ring_size) & Q(wheel__width__width__icontains=width) & Q(wheel__bolt_pattern__bolt_pattern__icontains=bolt_pattern) & Q(wheel__model__brand__brand__icontains=brand) & Q(wheel__model__model__icontains=model)
-        )
+        )   
         return posts
 
 

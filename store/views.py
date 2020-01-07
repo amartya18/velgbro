@@ -274,22 +274,7 @@ class WishlistView(ListView):
     def get_queryset(self):
         return Wishlist.objects.filter(user=self.request.user)
 
-<<<<<<< HEAD
-def add_comment_to_post(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            return redirect('post_detail', slug=post.slug)
-    else:
-        form = CommentForm()
-    return render(request, 'blog/detail.html', {'form': form})
-=======
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['nbar'] = 'wishlist'
         return context
->>>>>>> 74f4ba2081a943a537e849021e9dcc6bb113179c

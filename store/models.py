@@ -4,6 +4,8 @@ from django.utils.crypto import get_random_string
 from django.urls import reverse
 from PIL import Image
 
+from products.models import Wheel
+
 class Premium(models.Model):
     name = models.CharField(max_length=100) # basic or premium
     price = models.CharField(max_length=10)
@@ -18,6 +20,8 @@ class Post(models.Model):
     premium = models.ForeignKey(Premium, on_delete=models.CASCADE)
     sold = models.BooleanField(default=False)
     slug = models.SlugField(max_length=100,blank=True)
+
+    wheel = models.OneToOneField(Wheel, on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} {} {}".format(self.wheel.model.brand.brand, self.wheel.model.model, self.wheel.name)

@@ -1,5 +1,4 @@
 from django.db import models
-from store.models import Post
 from django.core.validators import MaxLengthValidator, MaxValueValidator, MinValueValidator
 from products.validators import my_blank_validator
 
@@ -48,7 +47,6 @@ class Material(models.Model):
 
 class Wheel(models.Model): # everything should be CASCADE
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
-    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='wheel')
     name = models.CharField(max_length=50, blank=True)
     ring_size = models.ForeignKey(RingSize, on_delete=models.CASCADE)
     width = models.ForeignKey(Width, on_delete=models.CASCADE)

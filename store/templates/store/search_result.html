@@ -2,20 +2,8 @@
 {% load static %}
 {% block content %}
 
-<h1>Search Result</h1>
-<ul>
-    {% for post in posts %}
-    <li>
-         {{ post }} </a>
-        {% for image in post.wheelimage_set.all %}
-        <img src="{{ image.image.url }}" alt="wheel">
-        {% endfor %}
-    </li>
-    {% endfor %}
-</ul>
-
-
-<div class="container">
+<div class="container pt-5 mt-5">
+  <h1 class="text-center">Search Result</h1>
     {% for post in posts %}
 
     <!-- CARD PRODUCTS-->
@@ -65,7 +53,6 @@
             </div>
         </div>
      </div>
-    </div>
      {% endfor %}
      <!-- CARD PRODUCTS-->
 </div>

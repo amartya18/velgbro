@@ -31,9 +31,11 @@ class HomePageView(TemplateView):
         context['boltpattern'] = BoltPattern.objects.all()
         context['brand'] = Brand.objects.all()
         context['model'] = Model.objects.all()
+        context['nbar']='home'
         return context
 
 class SearchResultView(ListView): # search result 
+    paginate_by=10
     model = Post
     template_name = 'store/search_result.html'
     context_object_name = 'posts'
@@ -66,8 +68,8 @@ def charge_view(request):
                 'currency': 'idr',
                 'quantity': 1,
             }],
-            success_url='http://localhost:8000/{}'.format(post_slug),
-            cancel_url='http://localhost:8000/cancel',
+            success_url='http://localhost:8000/detail/{}'.format(post_slug),
+            cancel_url=Http404,
             client_reference_id = post_slug,
         )
         return render(request, 'store/charge.html', {'sessionId': session['id']})
@@ -174,6 +176,7 @@ def create_post_view(request):
         context['post_form'] = post_form
         context['product_form'] = product_form
         context['image_form'] = image_form
+        context['nbar']='post'
 
         return render(request, "store/post_create.html", context)
 

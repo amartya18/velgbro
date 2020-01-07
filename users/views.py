@@ -30,7 +30,7 @@ def signup_view(request):
 
 @login_required
 def profile_view(request):
-    return render(request, 'users/profile.html')
+    return render(request, 'users/profile.html',{'nbar':'profile'})
 
 def update_view(request):
     if request.method =='POST':

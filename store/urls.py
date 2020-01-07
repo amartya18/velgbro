@@ -16,5 +16,5 @@ urlpatterns = [
     path('webhook', store_view.my_webhook_view, name='webhook'),
     path('add-to-wishlist/<slug:slug>', store_view.add_wishlist_view, name='add-wishlist'),
     path('mywishlist', store_view.WishlistView.as_view(), name='wishlist'),
-    # path('post/<slug:slug>/comment/', store_view.add_comment_to_post, name='add-comment'),
+    path('sold/<slug:slug>', store_view.post_sold, name='post-sold'),
 ]

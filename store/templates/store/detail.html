@@ -169,7 +169,15 @@ font-size: 16px;
   
           <h5 class = "text-primary">{{object}}</h5> 
           <p>Updated on:{{object.datetime}}</p>
-          <h4><strong>Rp.{{object.wheel.price}}</strong></h4>
+          {% if object.sold %}
+          <h4><strong>SOLD</strong></h4>
+          {% else %}
+          <h4><strong>Rp.{{object.wheel.price}}</strong> 
+            {%if object.user == current_user %}
+            <a class="btn btn-sm btn-secondary" href="{% url 'post-sold' object.slug %}">set as sold</a>
+            {% endif %}
+          </h4>
+          {% endif %}
           
         </div>
         
@@ -299,8 +307,8 @@ font-size: 16px;
     <hr>
     <p>{{ object.wheel.description|linebreaks }}
     </p>
-   
   </div>
+
   <div class="row text-center" style="max-height: 4rem;">
     {%if object.user == current_user %}
       <div class="col-sm-6 pl-0 ml-0" style="max-height: 3rem;"><a class="btn btn-primary btn-sm" href="{% url 'post-update' object.slug %}">update</a></div>
@@ -314,41 +322,14 @@ font-size: 16px;
     {% endif %}
 
   </div>
-  <div class="box box5">
-    <div><h2><b>KOMENTAR</b></h2></div><hr>
-    <hr>
-
-    {% for comment in object.comments.all %}
-    <div class="comment">
-      <div class="date">{{ comment.created_date }}</div>
-      <strong>{{ comment.user }}</strong>
-      <p>{{ comment.content|linebreaks }}</p>
-    </div>
-    {% empty %}
-    <p>No comments here yet :(</p>
-    {% endfor %}
-
-
-    <form class="post-form"  method="post" action="#" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="save btn btn-default">Send</button>
-    </form>
-
-    <div>
-    Comment:
-    <br>
-    <textarea name="" cols="50" rows="10" placeholder="please enter your comment here."> </textarea>
-        <p><a href="{% url 'post-update' object.slug %}">update</a></p>
-        <p><a href="{% url 'post-delete' object.slug %}">delete</a></p>
-  <div ></div>
+  <div></div>
   <div>
     <h4>About Seller</h4>
     <hr>
     <div class="row">
       <div class="col-lg-2">
         <div class="profile-pic">
-          <img src="{{ user.profile.profile_picture.url }}"alt="">
+          <img src="{{ object.user.profile.profile_picture.url }}"alt="">
         </div>
       </div> 
       <div class="col-lg-9 mt-4 ml-4">
@@ -359,38 +340,45 @@ font-size: 16px;
       </div>
     </div>
   </div>
-  <!--WRAPPER-->
-  </div>
+</div><!--THIS IS WRAPPER-->
+  <div>
+
+    
+
+
+
+
   
   <div class="pt-3">
     <h3 class="text-center text-primary">Comments</h3>
     <hr>
     <!--for loop here-->
+    {% for comment in object.comments.all %}
     <div class="card mb-3">
       <div class="row no gutters py-3">
         <div class=" col-md-2 pl-5 pr-0 text-center">
           <div class="comment-pic">
-            <img src="{{ user.profile.profile_picture.url }}" alt="">
+            <img src="{{ comment.user.profile.profile_picture.url }}" alt="">
           </div>
         </div>
         <div class="col-md-10 p pl-0  ">
-          <div class=" wheel-title text-left">MarcAntonio Smap</div>
+          <div class=" wheel-title text-left">{{comment.user}}</div>
           <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">
-            ini isi komen saya ini sangat keeren sih menurut kuy
-             hhhahahha belini isi komen saya ini sangat keeren sih 
-             menurut kuy hhhahahha belini isi komen saya ini sangat</span> 
-            <div><small>50 minutes ago</small></div>
+            {{comment.content|linebreaks}}</span> 
+            <div><small>{{comment.datetime}}</small></div>
         </div>
-          
       </div>
-   </div>
-   <form action="">
-    <div class="form-group">
-      <label for="exampleFormControlTextarea1">Insert your comment</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="This looks killer!"></textarea>
-      <div class="btn-primary btn mt-3 ml-0">Submit</div>
     </div>
-   </form>
+   {% empty %}
+   <p>No comments here yet :(</p>
+   {% endfor %}
+
+
+   <form class="post-form"  method="post" action="#" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.content }}
+    <button type="submit" class="save btn btn-primary">Send</button>
+  </form>
 
   </div>
   

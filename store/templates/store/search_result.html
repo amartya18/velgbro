@@ -42,27 +42,6 @@
           {% endfor %}
         </select>
       </div>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-      <script>
-        var enable_model = function () {
-          if ($("#brand-search").is(":checked")) {
-            console.log("hello")
-              $('#model-search').prop('disabled',false);
-          }
-          else {
-              $('#model-search').prop('disabled', 'disabled');
-          }
-        };
-        $(enable_model);
-        $("#brand-search").change(enable_model);
-
-        // var update_pizza = function () {
-        //   $("#model-search").prop("disabled", !$('#brand-search').prop('selected'));
-        // };
-
-        // update_pizza();
-        // $("#pizza").change(update_pizza);
-      </script>
       <div class="col-md-2 search">
         <select class="search-select" name="model" id="model-search"> 
           <option value="">Wheel Model</option>

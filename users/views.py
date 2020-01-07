@@ -76,7 +76,8 @@ def change_password(request):
             messages.success(request, 'Your password was successfully changed!')
             return redirect('profile')
         else:
-            messages.error(request, 'Please correct the error')
+            messages.success(request, 'There are errors during the update, Try again!')
+            return redirect('change')
     else:
         form = PasswordChangeForm(request.user)
         return render(request, 'users/change_password.html', {'form': form})

@@ -152,8 +152,17 @@ font-size: 16px;
   <!-- Image Slider -->
   <div class="container">
     <main>
-      <div class="pt-5"></div>
-      <div class="pt-5"></div>
+      <div class="pt-5 mt-5"></div>
+      {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+     {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
   
         <div class = "wrapper" >
           <div class="box box1">
@@ -162,8 +171,10 @@ font-size: 16px;
           <p>Updated on:{{object.datetime}}</p>
           <h4><strong>Rp.{{object.wheel.price}}</strong></h4>
           
-
+          <div>hahahah</div>
         </div>
+        
+        
   
       <div>
       <div id="slider">
@@ -226,16 +237,7 @@ font-size: 16px;
     </div>
   <!-- image slider -->
   <div >
-    {% for message in messages %}
-    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-     {{message}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-    {% endif %}
-{% endfor %}
+    
   <div><h2>Specification</h2></div>
     <hr>
     <div>
@@ -288,15 +290,7 @@ font-size: 16px;
     </div>
 
         <!-- if already in wishlist ilangin button or link nya -->
-    <div class="pt-3">
-    {% if object.user != current_user %}
-      {% if current_wishlist %}
-      <button class="btn btn-primary" disabled>Added to Wishlist</button>
-      {% else %}
-        <a href="{% url 'add-wishlist' post.slug %}" class="btn btn-primary">Wishlist</a>
-      {% endif %}
-    {% endif %}
-  </div>
+    <div></div>
     
       
   </div>
@@ -308,24 +302,57 @@ font-size: 16px;
     </p>
    
   </div>
+  <div class="row text-center" style="max-height: 4rem;">
+    {%if object.user == current_user %}
+      <div class="col-sm-6 pl-0 ml-0" style="max-height: 3rem;"><a class="btn btn-primary btn-sm" href="{% url 'post-update' object.slug %}">update</a></div>
+      <div class="col-sm-6"  style="max-height: 3rem;"><a class ="btn btn-danger btn-sm"href="{% url 'post-delete' object.slug %}">delete</a></div>
+    {% else %}
+      {% if current_wishlist %}
+        <button class="btn btn-primary" disabled>Added to Wishlist</button>
+      {% else %}
+        <a href="{% url 'add-wishlist' post.slug %}" class="btn btn-primary">Add to Wishlist</a>
+      {% endif %}
+    {% endif %}
 
+  </div>
+  <div ></div>
+  <div>
+    <h4>About Seller</h4>
+    <hr>
+    <div class="row">
+      <div class="col-lg-2">
+        <div class="profile-pic">
+          <img src="{{ user.profile.profile_picture.url }}"alt="">
+        </div>
+      </div> 
+      <div class="col-lg-9 mt-4 ml-4">
+        <h5>@{{ object.user.username }}</h5>
+        <p>email :<b>{{object.user.email}}</b></p>
+        <p>Phone Number :<b>{{object.user.profile.phone_number}}</b></p>
+
+      </div>
+    </div>
+  </div>
+  <div>
+    <h4>Comments</h4>
+    <hr>
+    <div class="row">
+      <div class="col-lg-2">
+        <div class="profile-pic">
+          <img src="{{ user.profile.profile_picture.url }}"alt="">
+        </div>
+      </div> 
+      <div class="col-lg-9 mt-4 ml-4">
+        <h5>@{{ object.user.username }}</h5>
+        <p>email :<b>{{object.user.email}}</b></p>
+        <p>Phone Number :<b>{{object.user.profile.phone_number}}</b></p>
+
+      </div>
+    </div>
+  </div>
+  <!--WRAPPER-->
+  </div>
   
-
-    
-  </div>
-  <div class="box box5">
-    <div><h2><b>KOMENTAR</b></h2></div><hr>
-    <div>
-    Comment:
-    <br>
-    <textarea name="" cols="50" rows="10" placeholder="please enter your comment here."> </textarea>
-        <p><a href="{% url 'post-update' object.slug %}">update</a></p>
-        <p><a href="{% url 'post-delete' object.slug %}">delete</a></p>
-    </div>
-    <div>
-      <a href="#"><button class="button">Enter</button></a>
-    </div>
-  </div>
   
     </main>
   </div>

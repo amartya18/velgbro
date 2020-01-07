@@ -28,4 +28,4 @@ class ProfileUpdateForm(forms.ModelForm):
     # phone_number = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Phone-number'}))
     class Meta:
         model = Profile
-        fields = ('profile_picture', 'phone_number')
+        fields = ( 'phone_number','profile_picture')

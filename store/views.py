@@ -56,6 +56,7 @@ class SearchResultView(ListView): # search result
         context['current']=self.request.GET['ringsize']
         print(str(context['current']))
         # print(type(context['current']))
+
         return context
 
     def get_queryset(self):
@@ -68,7 +69,7 @@ class SearchResultView(ListView): # search result
         posts = Post.objects.filter(
             # Q(wheel__name__icontains=name) 
             Q(wheel__ring_size__ring_size__icontains=ring_size) & Q(wheel__width__width__icontains=width) & Q(wheel__bolt_pattern__bolt_pattern__icontains=bolt_pattern) & Q(wheel__model__brand__brand__icontains=brand) & Q(wheel__model__model__icontains=model)
-        )   
+        )
         return posts
 
 
@@ -161,7 +162,6 @@ def create_post_view(request):
 
             post.save()
             product.save()
-
 
             for form in image_form.cleaned_data:
                 try:

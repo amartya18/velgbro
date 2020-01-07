@@ -201,8 +201,7 @@
         <div class="col-lg-3 col-md-6 mb-4">
 
           <!--Card-->
-         <div class="card card-small hot_card">
-
+         <div class="card card-small {% if c_post.premium %} hot_card {%endif%}">
             <!--Card image-->
             <div class="view overlay">
               <img src="{{ c_post.wheelimage_set.all.first.image.url }}" class="card-img-top"

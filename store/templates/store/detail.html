@@ -226,6 +226,16 @@ font-size: 16px;
     </div>
   <!-- image slider -->
   <div >
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+     {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    {% endif %}
+{% endfor %}
   <div><h2>Specification</h2></div>
     <hr>
     <div>
@@ -309,6 +319,8 @@ font-size: 16px;
     Comment:
     <br>
     <textarea name="" cols="50" rows="10" placeholder="please enter your comment here."> </textarea>
+        <p><a href="{% url 'post-update' object.slug %}">update</a></p>
+        <p><a href="{% url 'post-delete' object.slug %}">delete</a></p>
     </div>
     <div>
       <a href="#"><button class="button">Enter</button></a>

@@ -1,6 +1,6 @@
 from django.db import models
 from store.models import Post
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxLengthValidator, MaxValueValidator, MinValueValidator
 
 class RingSize(models.Model):
     ring_size = models.IntegerField()
@@ -58,6 +58,7 @@ class Wheel(models.Model): # everything should be CASCADE
     condition = models.BooleanField()
     material = models.ForeignKey(Material, null=True, on_delete=models.SET_NULL)
     price = models.IntegerField()
+    description = models.TextField(validators=[MaxLengthValidator(255)])
 
 
     def __str__(self):

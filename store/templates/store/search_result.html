@@ -3,6 +3,53 @@
 {% block content %}
 
 <div class="container pt-5 mt-5">
+  <form action="{% url 'search-results' %}" method="GET">
+    <div class="search-bar row text-center p-4 mt-4">
+      <div class="col-md-2 col-sm-12 search">
+        <select class="search-select" name="ringsize">
+          <option value="">Ring Size</option>
+          {% for item in ringsize %}
+          <option value="{{ item }}">{{ item }}</option>
+          {% endfor %}
+      </select>
+    </div>
+      <div class="col-md-2 col-sm-12 search">
+        <select  class="search-select" name="width">
+          <option value="">Width</option>
+          {% for item in width %}
+          <option value="{{ item }}">{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2 col-sm-12 search">
+        <select class="search-select" name="boltpattern"> 
+          <option value="">Bolt Pattern</option>
+          {% for item in boltpattern %}
+          <option value="{{ item }}">{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2 col-sm-12 search">
+        <select class="search-select" name="brand"> 
+          <option value="">Wheel Brand</option>
+          {% for item in brand %}
+          <option value="{{ item }}">{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2 search">
+        <select class="search-select" name="model"> 
+          <option value="">Wheel Model</option>
+          {% for item in model %}
+          <option value="{{ item }}">{{ item }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Search</button>
+      </div>
+      </div>
+    </form>
   <h1 class="text-center">Search Result</h1>
     {% for post in posts %}
 
@@ -24,7 +71,7 @@
           <div class="col-md-4 p pl-0">
             <a href="{{ post.get_absolute_url }}"><div class=" wheel-title text-left">{{post}}</div></a>
 
-            <span class="d-inline-block mt-1" style="max-width:100%; color: #838383;">{{post.wheel.description}}
+            <span class="d-inline-block mt-1 text-truncate" style="max-width:100%; color: #838383;">{{post.wheel.description}}
             </span>
             <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp.{{post.wheel.price}}</div>
             
@@ -36,7 +83,7 @@
                 <div class="text-center desc_panel">Regular</div>
 
               {% else %}
-              <div class="text-center desc_panel_hot">Premium</div>
+              <div class="text-center desc_panel hot">Premium</div>
               {% endif %}
 
               

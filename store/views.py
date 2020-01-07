@@ -39,7 +39,7 @@ class SearchResultView(ListView): # search result
     model = Post
     template_name = 'store/search_result.html'
     context_object_name = 'posts'
-    ordering = ['-datetime'] # will use hit in the future
+    ordering = ['wheel.price'] # will use hit in the future
 
     def get_queryset(self):
         # name = self.request.GET.get('name')

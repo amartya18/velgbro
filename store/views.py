@@ -75,7 +75,6 @@ class SearchResultView(ListView): # search result
 # temp
 def charge_view(request):
     if request.method == 'GET' and 'stripe_redirect' in request.session:
-        print("STRIPE")
         post_slug = request.GET.get('post_slug')
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],

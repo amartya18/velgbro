@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'velgbroV2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'velgbro',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'velgbroV2',
+        'USER': 'devuser',
+        'PASSWORD': 'root',
+        'HOST': '192.168.64.2',
         'OPTIONS': {
             'sql_mode': 'traditional',
         }

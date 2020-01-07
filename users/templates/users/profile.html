@@ -22,10 +22,11 @@
           <div class="profile-pic">
             <img src="{{ user.profile.profile_picture.url }}" alt="">
           </div>
+          <p class="text-center mt-2"><a href="{% url 'update' %}">update profile</a></p>
+
         </div> 
         <div class="col-lg-9 mt-1">
           <h4>@{{ user.username }}</h4>
-          <h5><small>{{ user.email }}</small></h5>
           <h5>Post Count: <b>1</b></h5>
           <h5>Sold :<b>1</b></h5>
           
@@ -35,7 +36,6 @@
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star"></span>
           <p><a href="{% url 'logout' %}">logout</a></p>
-          <p><a href="{% url 'update' %}">update</a></p>
           <p><a href="{% url 'change' %}">change password</a></p>
 
         </div>
@@ -56,43 +56,44 @@
   
     <!--Grid row-->
     <div class="row wow fadeIn">
-  
-      <!--Grid column-->
+      {% for c_post in posts %}
       <div class="col-lg-3 col-md-6 mb-4">
-  
+
         <!--Card-->
-        <div class="card card-small hot_card">
-  
+       <div class="card card-small hot_card">
+
           <!--Card image-->
           <div class="view overlay">
-            <img src="img/wheel/wheelsale (1).png" class="card-img-top"
+            <img src="{{ c_post.wheelimage_set.all.first.image.url }}" class="card-img-top"
               alt="">
-            <a>
+            <a href="{{ c_post.get_absolute_url }}">
               <div class="mask rgba-white-slight"></div>
               <div class=wheel-tag>HOT</div>
             </a>
           </div>
           <!--Card image-->
-  
+
           <!--Card content-->
           <div class="card-body text-center">
             <!--Category & Title-->
-            <a href="" class="grey-text">
-              <h5>USED</h5>
-            </a>
-            <div class=" wheel-title text-center">2017 Enkei RPF1 1.0 harga terbaik</div>
-  
-            <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp 12.000.000</div>
-  
-  
+              <h5>{{ c_post.wheel.condition }}</h5>
+            <a href="{{ c_post.get_absolute_url }}"><div class=" wheel-title text-center">{{ c_post }}</div></a>
+
+            <div class="wheel-title text-dark mt-2" style="font-weight: bold;">Rp {{ c_post.wheel.price}}</div>
+
+
           </div>
           <!--Card content-->
-  
+
         </div>
         <!--Card-->
-  
+
       </div>
       <!--Grid column-->
+
+    </div>
+    <!--Grid Row-->
+      {% endfor %}
     </section>
   
   </div>

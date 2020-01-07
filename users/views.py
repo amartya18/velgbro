@@ -3,6 +3,9 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from store.models import Post
 from .forms import SignUpForm, ProfileUpdateForm, UserUpdateForm
 
 # Create your views here.
@@ -28,9 +31,18 @@ def signup_view(request):
         form = SignUpForm()
     return render(request, 'users/signup.html', {'form': form})
 
+class ProfileView(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'users/profile.html'
+    context_object_name = 'posts'
+    ordering = ['-datetime']
+
+    def get_queryset(self):
+        return Post.objects.filter(user=self.request.user)
+
 @login_required
 def profile_view(request):
-    pagination=10
+    # pagination=10
     return render(request, 'users/profile.html',{'nbar':'profile'})
 
 def update_view(request):

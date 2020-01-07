@@ -17,9 +17,9 @@ main
 
 * offset + and - dropdown form
 
+* @login_required
+
 side
 * post's hit/visitors count
-* finish all wheel attributes (color, material, offset)
 * add django messages - to confirm succesful post
 * refractor post view and others
-* add base html and base heading (?)

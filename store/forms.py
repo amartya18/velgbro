@@ -10,7 +10,7 @@ class PostForm(ModelForm):
 class ProductForm(ModelForm):
     class Meta:
         model = Wheel
-        fields = ('model','name','ring_size','width','bolt_pattern', 'color', 'material','offset', 'condition', 'price')
+        fields = ('model','name', 'description', 'ring_size','width','bolt_pattern', 'color', 'material','offset', 'condition', 'price')
 
 
 # class ProductForm(ProductBaseForm):

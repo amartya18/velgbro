@@ -1,7 +1,7 @@
 import json
 import stripe
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib import messages
 from django.shortcuts import render, HttpResponse, Http404, redirect, reverse
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from .models import Post, WheelImage, Premium
@@ -176,6 +176,29 @@ def create_post_view(request):
         context['image_form'] = image_form
 
         return render(request, "store/post_create.html", context)
+
+def post_update_view(request, slug):
+    post = Post.objects.filter(slug=slug).first()
+    if request.method == 'POST':
+        wheel_form = ProductForm(request.POST, instance=post.wheel)
+        if wheel_form.is_valid():
+            wheel_form.save()
+            messages.success(request, 'Update Successful')
+            return redirect('post-detail', slug=slug)
+        else:
+            messages.warning(request, 'Error')
+    else:
+        wheel_form = ProductForm(instance=post.wheel)
+    return render(request, 'store/update.html', {'wheel_form': wheel_form})
+
+def post_delete_view(request, slug):
+    post = Post.objects.filter(slug=slug).first()
+    if request.method =='GET':
+        post.delete()
+        messages.success(request, 'Delete Successful')
+        return redirect('profile')
+    else:
+        return Http404
 
 def add_wishlist_view(request, slug):
     post = Post.objects.filter(slug=slug).first()

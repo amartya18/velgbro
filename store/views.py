@@ -185,7 +185,7 @@ class PostDetailView(FormMixin, DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
 
-@login_required
+@login_required(login_url='/login/?next=/post/')
 def create_post_view(request):
     ImageFormSet = modelformset_factory(WheelImage, form=ImageForm, extra=2) # extra = max amount of photos 
     if request.method == "POST":
@@ -242,6 +242,7 @@ def create_post_view(request):
 
         return render(request, "store/post_create.html", context)
 
+@login_required(login_url='/login/?next=/post/')
 def post_update_view(request, slug):
     post = Post.objects.filter(slug=slug).first()
     if request.method == 'POST':
@@ -256,6 +257,7 @@ def post_update_view(request, slug):
         wheel_form = ProductForm(instance=post.wheel)
     return render(request, 'store/update.html', {'wheel_form': wheel_form})
 
+@login_required(login_url='/login/?next=/post-delete/')
 def post_delete_view(request, slug):
     post = Post.objects.filter(slug=slug).first()
     if request.method =='GET':
@@ -265,13 +267,14 @@ def post_delete_view(request, slug):
     else:
         return Http404
 
+@login_required(login_url='/login/?next=/add-wishlist/')
 def add_wishlist_view(request, slug):
     post = Post.objects.filter(slug=slug).first()
     new_wishlist = Wishlist(user=request.user, wheel=post)
     new_wishlist.save()
     return redirect('post-detail', slug=slug)
 
-class WishlistView(ListView):
+class WishlistView(LoginRequiredMixin, ListView):
     model = Wishlist
     template_name = 'store/wishlist.html'
     context_object_name = 'wishlist'
@@ -285,6 +288,7 @@ class WishlistView(ListView):
         context['nbar'] = 'wishlist'
         return context
 
+@login_required(login_url='/login/?next=/post-sold/')
 def post_sold(request, slug):
     if request.method == 'GET':
         post = get_object_or_404(Post, slug=slug)

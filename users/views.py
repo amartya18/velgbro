@@ -36,6 +36,7 @@ class ProfileView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'users/profile.html'
     context_object_name = 'posts'
+    paginate_by=3
     ordering = ['-datetime']
 
     def get_queryset(self):
@@ -44,6 +45,9 @@ class ProfileView(LoginRequiredMixin, ListView):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['nbar'] = 'profile'
+        context['post_count']= Post.objects.filter(user=self.request.user).count()
+        context['sold_count']= Post.objects.filter(user=self.request.user).filter(sold=True).count()
+
         return context
 
 

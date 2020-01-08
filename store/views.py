@@ -20,6 +20,7 @@ from users.models import Wishlist
 from django.core.paginator import Paginator
 from store.forms import CommentForm
 from django.views.generic.edit import FormMixin
+from django.http import JsonResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
@@ -28,7 +29,8 @@ class HomePageView(ListView):
     template_name = 'store/home.html'
     model = Post
     context_object_name = 'posts'
-    paginate_by = 2
+    # paginate_by =4
+    ordering = ['-premium__price']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,12 +48,13 @@ class SearchResultView(ListView): # search result
     model = Post
     template_name = 'store/search_result.html'
     context_object_name = 'posts'
-    ordering = ['-datetime'] # will use hit in the future
+    # ordering = ['wheel.price'] # will use hit in the future
 
     # def get_ordering(self):
-    #     ordering = self.request.GET.get('ordering', 'premium.price')
+    #     ordering = self.request.GET.get('ordering', 'wheel.price')
     #     ordering.order_by('datetime')
     #     return ordering
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,8 +65,6 @@ class SearchResultView(ListView): # search result
         context['model'] = Model.objects.all()
         context['nbar']='search'
         context['current']=self.request.GET['ringsize']
-        
-        context['sorted_posts']= Post.objects.filter(sold=False).order_by('premium.price').order_by('-datetime')
 
         return context
 
@@ -78,6 +79,9 @@ class SearchResultView(ListView): # search result
             # Q(wheel__name__icontains=name) 
             Q(wheel__ring_size__ring_size__icontains=ring_size) & Q(wheel__width__width__icontains=width) & Q(wheel__bolt_pattern__bolt_pattern__icontains=bolt_pattern) & Q(wheel__model__brand__brand__icontains=brand) & Q(wheel__model__model__icontains=model)
         )
+
+        posts = posts.filter(sold=False).order_by('-premium__price','-datetime')
+
         return posts
 
 
@@ -187,11 +191,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 @login_required(login_url='/login/?next=/post/')
 def create_post_view(request):
-    ImageFormSet = modelformset_factory(WheelImage, form=ImageForm, extra=2) # extra = max amount of photos 
+    # ImageFormSet = modelformset_factory(WheelImage, form=ImageForm, extra=2) # extra = max amount of photos 
     if request.method == "POST":
         post_form = PostForm(request.POST)
         product_form = ProductForm(request.POST)
-        image_form = ImageFormSet(request.POST, request.FILES)
+        image_form = ImageForm(request.POST, request.FILES)
         if post_form.is_valid() and product_form.is_valid() and image_form.is_valid():
             post = post_form.save(False)
             post.user = request.user
@@ -278,6 +282,7 @@ class WishlistView(LoginRequiredMixin, ListView):
     model = Wishlist
     template_name = 'store/wishlist.html'
     context_object_name = 'wishlist'
+    paginate_by:4
     ordering = ['-datetime'] 
 
     def get_queryset(self):

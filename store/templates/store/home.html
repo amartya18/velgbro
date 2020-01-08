@@ -201,14 +201,14 @@
         <div class="col-lg-3 col-md-6 mb-4">
 
           <!--Card-->
-         <div class="card card-small {% if c_post.premium.name == 'premium' %} hot_card {%endif%}">
+         <div class="card card-small {% if c_post.premium.name == 'Premium' %} hot_card {%endif%}">
             <!--Card image-->
             <div class="view overlay">
               <img src="{{ c_post.wheelimage_set.all.first.image.url }}" class="card-img-top"
                 alt="">
               <a href="{{ c_post.get_absolute_url }}">
                 <div class="mask rgba-white-slight"></div>
-                {% if c_post.premium.name == 'premium' %}
+                {% if c_post.premium.name == 'Premium' %}
                 <div class=wheel-tag>HOT</div>
                 {% endif %}
               </a>
@@ -307,47 +307,6 @@
     </div>
   </main>
   <!--Main layout-->
-<!-- <h1>HomePage</h1>
-
-<h2>Dropdown List Search</h2>
-<form action="{% url 'search-results' %}" method="GET">
-  <select name="ringsize">
-    <option value="">Ring Size</option>
-    {% for item in ringsize %}
-    <option value="{{ item }}">{{ item }}</option>
-    {% endfor %}
-  </select>
-  <select name="width">
-    <option value="">Width</option>
-    {% for item in width %}
-    <option value="{{ item }}">{{ item }}</option>
-    {% endfor %}
-  </select>
-  <select name="boltpattern"> 
-    <option value="">Bolt Pattern</option>
-    {% for item in boltpattern %}
-    <option value="{{ item }}">{{ item }}</option>
-    {% endfor %}
-  </select>
-  <select name="brand"> 
-    <option value="">Wheel Brand</option>
-    {% for item in brand %}
-    <option value="{{ item }}">{{ item }}</option>
-    {% endfor %}
-  </select>
-  <select name="model"> 
-    <option value="">Wheel Model</option>
-    {% for item in model %}
-    <option value="{{ item }}">{{ item }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit">Search</button>
-</form>
-
-<h2>Normal Search</h2>
-<form action="{% url 'search-results' %}" method="GET">
-  <input name="name" type="text" placeholder="Search...">
-  <button type="submit">Search</button>
-</form> -->
+<
 
 {% endblock %}

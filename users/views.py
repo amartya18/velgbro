@@ -9,6 +9,8 @@ from store.models import Post
 from .models import Wishlist
 from .forms import SignUpForm, ProfileUpdateForm, UserUpdateForm
 
+from django.db import connection
+
 # Create your views here.
 def home_view(request):
     return HttpResponse("Hello World!")
@@ -23,6 +25,7 @@ def signup_view(request):
         user.profile.phone_number = form.cleaned_data.get('phone_number')
         user.profile.email = form.cleaned_data.get('email')
         user.save()
+        print(connection.queries)
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password1')
         user = authenticate(username=username, password=password)
@@ -48,6 +51,7 @@ class ProfileView(LoginRequiredMixin, ListView):
         context['post_count']= Post.objects.filter(user=self.request.user).count()
         context['sold_count']= Post.objects.filter(user=self.request.user).filter(sold=True).count()
 
+        print(connection.queries)
         return context
 
 
@@ -58,6 +62,7 @@ def update_view(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
+            print(connection.queries)
             messages.success(request, f'Your account has been updated!')
             return redirect('profile')
     else:
@@ -93,6 +98,7 @@ class WishlistView(ListView):
     template_name = 'users/wishlist.html'
     context_object_name = 'wishlist'
     ordering = ['-datetime'] 
+    paginate_by = 3
 
     def get_queryset(self):
         return Wishlist.objects.filter(user=self.request.user)

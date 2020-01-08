@@ -22,6 +22,8 @@ from store.forms import CommentForm
 from django.views.generic.edit import FormMixin
 from django.http import JsonResponse
 
+from django.db  import connection
+
 stripe.api_key = settings.STRIPE_SECRET_KEY # new
 
 # Create your views here.
@@ -66,6 +68,7 @@ class SearchResultView(ListView): # search result
         context['nbar']='search'
         context['current']=self.request.GET['ringsize']
 
+        print(connection.queries)
         return context
 
     def get_queryset(self):
@@ -191,11 +194,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 @login_required(login_url='/login/?next=/post/')
 def create_post_view(request):
-    # ImageFormSet = modelformset_factory(WheelImage, form=ImageForm, extra=2) # extra = max amount of photos 
+    ImageFormSet = modelformset_factory(WheelImage, form=ImageForm, extra=4) # extra = max amount of photos 
     if request.method == "POST":
         post_form = PostForm(request.POST)
         product_form = ProductForm(request.POST)
-        image_form = ImageForm(request.POST, request.FILES)
+        image_form = ImageFormSet(request.POST, request.FILES)
         if post_form.is_valid() and product_form.is_valid() and image_form.is_valid():
             post = post_form.save(False)
             post.user = request.user
@@ -218,6 +221,8 @@ def create_post_view(request):
                 except Exception as e:
                     print("Picture Error")
                     break
+            
+            print(connection.queries)
 
             if int(request.POST['premium']) == Premium.objects.filter(name='premium').first().pk:
                 print("PREMIUM")
@@ -253,6 +258,7 @@ def post_update_view(request, slug):
         wheel_form = ProductForm(request.POST, instance=post.wheel)
         if wheel_form.is_valid():
             wheel_form.save()
+            print(connection.queries)
             messages.success(request, 'Update Successful')
             return redirect('post-detail', slug=slug)
         else:
@@ -266,6 +272,7 @@ def post_delete_view(request, slug):
     post = Post.objects.filter(slug=slug).first()
     if request.method =='GET':
         post.delete()
+        print(connection.queries)
         messages.success(request, 'Delete Successful')
         return redirect('profile')
     else:

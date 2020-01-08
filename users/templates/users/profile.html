@@ -38,7 +38,6 @@
   </div>
   <hr>
   <h2 class="text-center">{{user.first_name}}'s Wheel</h2>
-  <h5  class="text-center"><small>ordered by</small>
   <div class="container">
   <!--Section: Products v.3-->
   <section class="text-left mb-4">
@@ -50,7 +49,7 @@
       <div class="col-lg-3 col-md-6 mb-4">
 
         <!--Card-->
-       <div class="card card-small hot_card">
+       <div class="card card-small {% if c_post.premium.name == 'Premium' %} hot_card {%endif%}">
 
           <!--Card image-->
           <div class="view overlay">
@@ -58,7 +57,9 @@
               alt="">
             <a href="{{ c_post.get_absolute_url }}">
               <div class="mask rgba-white-slight"></div>
-              <div class=wheel-tag>HOT</div>
+              {% if c_post.wheel.premium.name == 'Premium' %}
+                <div class=wheel-tag>HOT</div>
+                {% endif %}
             </a>
           </div>
           <!--Card image-->
@@ -88,7 +89,7 @@
       
     </section>
    <!--Pagination-->
-{% if is_paginated %}
+
 <nav class="d-flex justify-content-center wow fadeIn">
   <ul class="pagination pg-blue">
     <!--Arrow left-->
@@ -143,7 +144,6 @@
 </nav>
 
 
-{% endif %}
 <!--Pagination-->
   </div>
   {% endblock content %}

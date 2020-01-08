@@ -20,6 +20,9 @@ class Post(models.Model):
     sold = models.BooleanField(default=False)
     slug = models.SlugField(max_length=100,blank=True)
 
+    def message_whatsapp(self):
+        return "Hello I'm {} and i saw your wheel in velgbro.com and i wanna know more about the {} wheel with ring size of {}inch and width of {}inches and with the price of {} rupiah. ThankYou".format(self.user.first_name,self,self.wheel.ring_size,self.wheel.width,self.wheel.price)
+
     def __str__(self):
         return "{} {} {}".format(self.wheel.model.brand.brand, self.wheel.model.model, self.wheel.name)
 

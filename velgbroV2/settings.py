@@ -79,15 +79,19 @@ WSGI_APPLICATION = 'velgbroV2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'velgbroV2',
-        'USER': 'devuser',
-        'PASSWORD': 'root',
-        'HOST': '192.168.64.2',
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'velgbroV2',
+    #     'USER': 'devuser',
+    #     'PASSWORD': 'root',
+    #     'HOST': '192.168.64.2',
+    #     'OPTIONS': {
+    #         'sql_mode': 'traditional',
+    #     }
+    # }
 }
 
 

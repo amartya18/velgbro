@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/amartya18/velgbro/master/docs/logo.png">
+  <img src="https://raw.githubusercontent.com/amartya18/velgbro/master/docs/fix-logo.png">
 </p>
 
 --------------------------------------------------------------------
@@ -23,11 +23,15 @@ Team members:
 ## How to Install
 1. Clone or download zip of Velgbro.
 
-`$ git clone https://github.com/amartya18/velgbro.git`
+```
+$ git clone https://github.com/amartya18/velgbro.git
+```
 
 2. Install required libraries
 
-`$ pip install -r requirements.txt`
+```
+$ pip install -r requirements.txt
+```
 
 3. Migrate the tables into the database
 ```
@@ -36,4 +40,6 @@ $ python manage.py migrate
 ```
 
 4. Run the website on yoour localhost server
-`$ python manage.py runserver`
+```
+$ python manage.py runserver`
+```
